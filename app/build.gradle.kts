@@ -37,7 +37,27 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.room.common.jvm)
+    implementation(libs.sqlite.android)
+    implementation("androidx.room:room-runtime:2.5.2")
+    implementation(libs.room.runtime.android)
+    annotationProcessor("androidx.room:room-compiler:2.5.2")
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    //Room Libraries
+
+    implementation("android.arch.persistence.room:runtime:1.1.1")
+    annotationProcessor("android.arch.persistence.room:compiler:1.1.1")
+
+    //Live Data Libraries
+
+    implementation("android.arch.lifecycle:livedata:1.1.1")
+
+    //View Model Libraries
+     implementation("android.arch.lifecycle:viewmodel:1.1.1")
+    implementation("android.arch.lifecycle:extensions:1.1.1")
+    annotationProcessor("android.arch.lifecycle:compiler:1.1.1")
+
 }
