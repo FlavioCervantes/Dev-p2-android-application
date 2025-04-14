@@ -30,15 +30,14 @@ public class Questions {
     @ColumnInfo(name = "option4")
     private String option4;
 
-    public Questions() {
+    public Questions(String s, String apple, String banana, String grapes, String orange, int i) {
         questionId = 0;
         question = "";
-        answer = "";
         option1 = "";
         option2 = "";
         option3 = "";
         option4 = "";
-
+        answer = "";
 
     }
 
@@ -94,14 +93,14 @@ public class Questions {
         this.option4 = option4;
     }
 
-    public Questions(int questionId, String question, String answer, String option1, String option2, String option3, String option4) {
+    public Questions(int questionId, String question,  String option1, String option2, String option3, String option4,String answer) {
        this.questionId = questionId;
         this.question = question;
-        this.answer = answer;
         this.option1 = option1;
         this.option2 = option2;
         this.option3 = option3;
         this.option4 = option4;
+        this.answer = answer;
     }
 
 
