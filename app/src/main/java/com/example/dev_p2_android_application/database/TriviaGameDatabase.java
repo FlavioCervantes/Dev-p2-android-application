@@ -1,4 +1,4 @@
-package com.example.dev_p2_android_application;
+package com.example.dev_p2_android_application.database;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -9,6 +9,8 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.dev_p2_android_application.Questions;
+import com.example.dev_p2_android_application.TriviaQuestionsDAO;
 
 
 //@TypeConverters(LocalDateTypeConverter.class)
