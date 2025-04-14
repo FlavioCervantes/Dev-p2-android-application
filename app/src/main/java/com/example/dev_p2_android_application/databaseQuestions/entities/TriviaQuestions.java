@@ -1,6 +1,5 @@
 package com.example.dev_p2_android_application.databaseQuestions.entities;
 
-import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -9,27 +8,37 @@ import java.util.Objects;
 @Entity(tableName = "triviaQuestions")
 public class TriviaQuestions {
     @PrimaryKey(autoGenerate = true)
-    @NonNull
-    public String ID = "";
-    public String optionOne = "";
-    public String optionTwo = "";
-    public String optionThree = "";
-    public String optionFour = "";
+    public int questionId;
+    public String type;
+    public String optionOne;
+    public String optionTwo;
+    public String optionThree;
+    public String optionFour;
+    public String correctAnswer;
 
-    public TriviaQuestions(String optionOne, String optionTwo, String optionThree, String optionFour) {
+    public TriviaQuestions(String type, String optionOne, String optionTwo, String optionThree, String optionFour, String correctAnswer) {
+        this.type = type;
         this.optionOne = optionOne;
         this.optionTwo = optionTwo;
         this.optionThree = optionThree;
         this.optionFour = optionFour;
+        this.correctAnswer = correctAnswer;
     }
 
-    @NonNull
-    public String getID() {
-        return ID;
+    public int getQuestionId() {
+        return questionId;
     }
 
-    public void setID(@NonNull String ID) {
-        this.ID = ID;
+    public void setQuestionId(int questionId) {
+        this.questionId = questionId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getOptionOne() {
@@ -64,16 +73,24 @@ public class TriviaQuestions {
         this.optionFour = optionFour;
     }
 
+    public String getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TriviaQuestions that = (TriviaQuestions) o;
-        return Objects.equals(ID, that.ID) && Objects.equals(optionOne, that.optionOne) && Objects.equals(optionTwo, that.optionTwo) && Objects.equals(optionThree, that.optionThree) && Objects.equals(optionFour, that.optionFour);
+        return questionId == that.questionId && Objects.equals(type, that.type) && Objects.equals(optionOne, that.optionOne) && Objects.equals(optionTwo, that.optionTwo) && Objects.equals(optionThree, that.optionThree) && Objects.equals(optionFour, that.optionFour) && Objects.equals(correctAnswer, that.correctAnswer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, optionOne, optionTwo, optionThree, optionFour);
+        return Objects.hash(questionId, type, optionOne, optionTwo, optionThree, optionFour, correctAnswer);
     }
 }
