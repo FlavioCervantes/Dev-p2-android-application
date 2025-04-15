@@ -1,34 +1,41 @@
 package com.example.dev_p2_android_application.database;
 
-import  android.app.Application;
+import android.app.Application;
+import android.os.AsyncTask;
 
-import androidx.lifecycle.LiveData;
-import com.example.dev_p2_android_application.Questions;
-import com.example.dev_p2_android_application.TriviaQuestionsDAO;
+import com.example.dev_p2_android_application.database.TriviaQuestionsDAO;
+import com.example.dev_p2_android_application.database.TriviaQuestionsDatabase;
+import com.example.dev_p2_android_application.database.TriviaQuestions;
 
 import java.util.List;
 
 public class TriviaQuestionsRepository {
+    private final TriviaQuestionsDAO dao;
 
-    private TriviaQuestionsDAO triviaQuestionsDAO;
-    private LiveData<List<Questions>> allQuestions;
-
-    public TriviaQuestionsRepository(Application application) {
-        TriviaQuestionsDatabase db = TriviaQuestionsDatabase.getInstance(application);
-        triviaQuestionsDAO = db.triviaQuestionsDAO();
-        allQuestions = triviaQuestionsDAO.getAllQuestions();
+    public TriviaQuestionsRepository(Application application){
+        TriviaQuestionsDatabase db = TriviaQuestionsDatabase.getDatabase(application);
+        this.dao = db.triviaQuestionDao();
     }
 
-    public LiveData<List<Questions>> getAllQuestions() {
-        return allQuestions;
+    public List<TriviaQuestions> getAllQuestions(){
+        return dao.getAllQuestions();
     }
 
-    public void insert(Questions question) {
-        triviaQuestionsDAO.insert(question);
+    public void insert(TriviaQuestions question){
+        new InsertAsyncTask(dao).execute(question);
     }
 
-    public void deleteAll() {
-        triviaQuestionsDAO.deleteAll();
-    }
+    private static class InsertAsyncTask extends AsyncTask<TriviaQuestions, Void, Void> {
+        private final TriviaQuestionsDAO dao;
 
+        InsertAsyncTask(TriviaQuestionsDAO dao){
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(TriviaQuestions... questions){
+            dao.insert(questions[0]);
+            return null;
+        }
+    }
 }

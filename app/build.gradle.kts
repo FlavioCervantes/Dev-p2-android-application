@@ -32,32 +32,23 @@ android {
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    implementation(libs.room.common.jvm)
     implementation(libs.sqlite.android)
+
+    // Room Libraries
     implementation("androidx.room:room-runtime:2.5.2")
-    implementation(libs.room.runtime.android)
     annotationProcessor("androidx.room:room-compiler:2.5.2")
+
+    // Lifecycle Libraries
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+
+    // Testing Libraries
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-
-    //Room Libraries
-
-    implementation("android.arch.persistence.room:runtime:1.1.1")
-    annotationProcessor("android.arch.persistence.room:compiler:1.1.1")
-
-    //Live Data Libraries
-
-    implementation("android.arch.lifecycle:livedata:1.1.1")
-
-    //View Model Libraries
-     implementation("android.arch.lifecycle:viewmodel:1.1.1")
-    implementation("android.arch.lifecycle:extensions:1.1.1")
-    annotationProcessor("android.arch.lifecycle:compiler:1.1.1")
-
 }

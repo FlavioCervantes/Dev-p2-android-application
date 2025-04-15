@@ -11,7 +11,7 @@ public class ActiveDirectory {
 
     @ColumnInfo(name = "username")
     public String username;
-    public boolean userName;
+
     @ColumnInfo(name = "password")
     public String password;
 

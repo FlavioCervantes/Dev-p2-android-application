@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
             //Get the values of all users and start the MainActivity
             for(ActiveDirectory activeDirectory : activeDirectoryDAO.getAllUsers()) {
-                System.out.println(activeDirectory.userName);
+                System.out.println(activeDirectory.username);
             }
         }).start();
         }

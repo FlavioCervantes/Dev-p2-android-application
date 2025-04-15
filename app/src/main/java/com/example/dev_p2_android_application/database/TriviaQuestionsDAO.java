@@ -1,18 +1,15 @@
-package com.example.dev_p2_android_application;
+package com.example.dev_p2_android_application.database;
 
-import androidx.room.Dao;
-import androidx.room.Insert;
-import androidx.room.Query;
-
+import com.example.dev_p2_android_application.database.TriviaQuestions;
 import java.util.List;
-//test
-
+import androidx.room.Dao;
+import androidx.room.Query;
+import androidx.room.Insert;
 @Dao
 public interface TriviaQuestionsDAO {
+    @Insert
+    void insert(TriviaQuestions triviaQuestions);
 
-    @Query("SELECT * FROM " + TriviaQuestionsDatabase.TRIVIA_QUESTIONS_TABLE)
-    List<Questions> getAllQuestions();
-
-@Insert
-        void insert(Questions question);
+    @Query("SELECT * FROM TriviaQuestions")
+    List<TriviaQuestions> getAllQuestions();
 }
