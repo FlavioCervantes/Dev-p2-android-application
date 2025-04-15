@@ -3,9 +3,6 @@ package com.example.dev_p2_android_application.database;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
-import androidx.room.Dao;
-import androidx.room.Insert;
-import androidx.room.Query;
 
 import com.example.dev_p2_android_application.Questions;
 import com.example.dev_p2_android_application.TriviaQuestionsDAO;
@@ -17,8 +14,8 @@ public class QuestionsRepo {
     private LiveData<List<Questions>> mAllQuestions;
 
     public QuestionsRepo(Application application) {
-        TriviaGameDatabase db = TriviaGameDatabase.getInstance(application);
-        mtriviaQuestionsDAO = db.triviaQuestionsDAO();
+        TriviaQuestionsDatabase db = TriviaQuestionsDatabase.getInstance(application);
+        TriviaQuestionsDAO = db.triviaQuestionsDAO();
         mAllQuestions = (LiveData<List<Questions>>) mtriviaQuestionsDAO.getAllQuestions();
     }
 
