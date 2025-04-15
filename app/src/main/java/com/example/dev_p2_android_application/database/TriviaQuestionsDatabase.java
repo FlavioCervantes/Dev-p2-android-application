@@ -2,79 +2,75 @@ package com.example.dev_p2_android_application.database;
 
 import android.content.Context;
 import android.os.AsyncTask;
-
-import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-import com.example.dev_p2_android_application.Questions;
-import com.example.dev_p2_android_application.TriviaQuestionsDAO;
-
-
-//@TypeConverters(LocalDateTypeConverter.class)
-@Database(entities = {Questions.class}, version = 1)
+import com.example.dev_p2_android_application.database.TriviaQuestionsDAO;
+import com.example.dev_p2_android_application.database.TriviaQuestions;
+@Database(entities = {TriviaQuestions.class}, version = 1, exportSchema = false)
 public abstract class TriviaQuestionsDatabase extends  RoomDatabase {
+    private static final String DATABASE_NAME = "trivia_question_database";
+    private static volatile TriviaQuestionsDatabase INSTANCE;
+    public abstract TriviaQuestionsDAO triviaQuestionDao();
 
-    private static final String DATABASE_NAME = "triviaGame_database";
-    public static final String TRIVIA_GAME_LOG_TABLE = "triviaGameLog";
-    private static TriviaQuestionsDatabase INSTANCE;
-
-    public abstract TriviaQuestionsDAO triviaQuestionsDAO();
-
-    public static synchronized TriviaQuestionsDatabase getInstance(final Context context) {
-        if (INSTANCE == null) {
-            INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            TriviaQuestionsDatabase.class,
-                            DATABASE_NAME)
-                    .fallbackToDestructiveMigration()
-                    .addCallback(RoomDBCallback)
-                    .build();
+    public static TriviaQuestionsDatabase getDatabase(final Context context){
+        if(INSTANCE == null){
+            synchronized(TriviaQuestionsDatabase.class){
+                if(INSTANCE == null){
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                                    TriviaQuestionsDatabase.class,
+                                    DATABASE_NAME)
+                            .fallbackToDestructiveMigration()
+                            .addCallback(addDefaultValues)
+                            .build();
+                }
+            }
         }
         return INSTANCE;
     }
 
 
-    private static RoomDatabase.Callback RoomDBCallback = new RoomDatabase.Callback() {
+    private static final RoomDatabase.Callback addDefaultValues = new RoomDatabase.Callback(){
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            new PopulateDBAsyncTask(INSTANCE).execute();
+            new PopulateDBsyncTasks(INSTANCE).execute();
         }
     };
 
-    private static class PopulateDBAsyncTask extends AsyncTask<Void, Void, Void> {
-
-        private final TriviaQuestionsDAO triviaWordDAO;
-
-        private PopulateDBAsyncTask(TriviaQuestionsDatabase db) {
-            triviaWordDAO = db.triviaQuestionsDAO();
+    private static class PopulateDBsyncTasks extends AsyncTask<Void, Void, Void> {
+        private final TriviaQuestionsDAO dao;
+        PopulateDBsyncTasks(TriviaQuestionsDatabase db){
+            dao = db.triviaQuestionDao();
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
-            triviaWordDAO.insert(new Questions("Red is the color of which fruit?", "Apple", "Banana", "Grapes", "Orange", 1));
-            triviaWordDAO.insert(new Questions("Which planet is known as the Red Planet?", "Earth", "Mars", "Jupiter", "Saturn", 2));
-            triviaWordDAO.insert(new Questions("What is the capital of France?", "Berlin", "Madrid", "Paris", "Rome", 3));
-            triviaWordDAO.insert(new Questions("What is the largest mammal in the world?", "Elephant", "Blue Whale", "Giraffe", "Hippopotamus", 2));
+        protected Void doInBackground(Void... voids){
+            dao.insert(new TriviaQuestions("Question suppose to be one", "a", "b", "c", "d", "a"));
+            dao.insert(new TriviaQuestions("suppose to be two","a", "b", "c", "d","b"));
+            dao.insert(new TriviaQuestions("suppose to be three","a", "b", "c","d","c"));
             return null;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
