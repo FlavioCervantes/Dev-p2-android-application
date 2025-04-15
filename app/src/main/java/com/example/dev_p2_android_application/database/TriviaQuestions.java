@@ -6,7 +6,8 @@ import androidx.room.PrimaryKey;
 import java.util.Objects;
 
 
-@Entity
+@Entity(tableName = "triviaQuestions")
+
 public class TriviaQuestions {
     @PrimaryKey(autoGenerate = true)
     public int questionId;
@@ -18,6 +19,7 @@ public class TriviaQuestions {
     public String correctAnswer;
 
 
+
     public TriviaQuestions(String question, String optionA, String optionB, String optionC, String optionD, String correctAnswer) {
         this.question = question;
         this.optionA = optionA;
@@ -26,10 +28,10 @@ public class TriviaQuestions {
         this.optionD = optionD;
         this.correctAnswer = correctAnswer;
     }
-}
 
+    }
  /*
-@Entity(tableName = "triviaQuestions")
+
 public class TriviaQuestions {
     @PrimaryKey(autoGenerate = true)
     public int questionId;
