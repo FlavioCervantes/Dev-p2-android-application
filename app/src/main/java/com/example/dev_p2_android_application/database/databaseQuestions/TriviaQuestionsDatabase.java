@@ -1,4 +1,4 @@
-package com.example.dev_p2_android_application.databaseQuestions;
+package com.example.dev_p2_android_application.database.databaseQuestions;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -9,9 +9,9 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.annotation.NonNull;
 
-import com.example.dev_p2_android_application.databaseQuestions.entities.TriviaQuestions;
+import com.example.dev_p2_android_application.database.databaseQuestions.entities.TriviaQuestions;
 @Database(entities = {TriviaQuestions.class}, version = 1, exportSchema = false)
-public abstract class TriviaQuestionsDatabase extends RoomDatabase {
+public abstract class TriviaQuestionsDatabase {
     private static final String DATABASE_NAME = "trivia_question_database";
     private static volatile TriviaQuestionsDatabase INSTANCE;
     public abstract TriviaQuestionsDAO triviaQuestionDao();

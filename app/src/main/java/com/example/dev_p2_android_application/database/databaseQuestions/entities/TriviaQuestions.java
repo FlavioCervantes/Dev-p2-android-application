@@ -1,4 +1,4 @@
-package com.example.dev_p2_android_application.databaseQuestions.entities;
+package com.example.dev_p2_android_application.database.databaseQuestions.entities;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

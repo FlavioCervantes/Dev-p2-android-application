@@ -1,6 +1,6 @@
-package com.example.dev_p2_android_application.databaseQuestions;
+package com.example.dev_p2_android_application.database.databaseQuestions;
 
-import com.example.dev_p2_android_application.databaseQuestions.entities.TriviaQuestions;
+import com.example.dev_p2_android_application.database.databaseQuestions.entities.TriviaQuestions;
 import java.util.List;
 import androidx.room.Dao;
 import androidx.room.Query;
@@ -10,6 +10,6 @@ public interface TriviaQuestionsDAO {
     @Insert
     void insert(TriviaQuestions questions);
 
-    @Query("Select * from " + TriviaQuestionsDatabase.TRIVIA_QUESTIONS_TABLE)
+    @Query("SELECT * FROM triviaQuestions")
     List<TriviaQuestions> getAllQuestions();
 }
