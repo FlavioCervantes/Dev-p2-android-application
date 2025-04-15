@@ -1,4 +1,4 @@
-package com.example.dev_p2_android_application;
+package com.example.dev_p2_android_application.database;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -9,22 +9,24 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.dev_p2_android_application.Questions;
+import com.example.dev_p2_android_application.TriviaQuestionsDAO;
 
 
 //@TypeConverters(LocalDateTypeConverter.class)
 @Database(entities = {Questions.class}, version = 1)
-public abstract class TriviaGameDatabase extends  RoomDatabase {
+public abstract class TriviaQuestionsDatabase extends  RoomDatabase {
 
     private static final String DATABASE_NAME = "triviaGame_database";
     public static final String TRIVIA_GAME_LOG_TABLE = "triviaGameLog";
-    private static TriviaGameDatabase INSTANCE;
+    private static TriviaQuestionsDatabase INSTANCE;
 
     public abstract TriviaQuestionsDAO triviaQuestionsDAO();
 
-    public static synchronized TriviaGameDatabase getInstance(final Context context) {
+    public static synchronized TriviaQuestionsDatabase getInstance(final Context context) {
         if (INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            TriviaGameDatabase.class,
+                            TriviaQuestionsDatabase.class,
                             DATABASE_NAME)
                     .fallbackToDestructiveMigration()
                     .addCallback(RoomDBCallback)
@@ -42,14 +44,11 @@ public abstract class TriviaGameDatabase extends  RoomDatabase {
         }
     };
 
-
-//TODO: Create private static class popdbasync.
-
     private static class PopulateDBAsyncTask extends AsyncTask<Void, Void, Void> {
 
         private final TriviaQuestionsDAO triviaWordDAO;
 
-        private PopulateDBAsyncTask(TriviaGameDatabase db) {
+        private PopulateDBAsyncTask(TriviaQuestionsDatabase db) {
             triviaWordDAO = db.triviaQuestionsDAO();
         }
 
