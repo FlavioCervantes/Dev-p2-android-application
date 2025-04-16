@@ -8,6 +8,7 @@ import com.example.dev_p2_android_application.database.entities.ActiveDirectory;
 
 import java.util.List;
 
+//TODO: Make ActiveDirectory class
 @Dao
 public interface ActiveDirectoryDAO {
     @Insert
