@@ -13,7 +13,9 @@ import com.example.dev_p2_android_application.database.entities.TriviaQuestions;
 import com.example.dev_p2_android_application.database.typeConverters.LocalDateTypeConverter;
 
 @Database(entities = {TriviaQuestions.class}, version = 1, exportSchema = false)
-    private static final String DATABASE_NAME = "trivia_question_database";
+@TypeConverters({LocalDateTypeConverter.class})
+public abstract class TriviaQuestionsDatabase extends RoomDatabase{
+public static final String DATABASE_NAME = "trivia_question_database";
     private static volatile TriviaQuestionsDatabase INSTANCE;
     public abstract TriviaQuestionsDAO triviaQuestionDao();
 
