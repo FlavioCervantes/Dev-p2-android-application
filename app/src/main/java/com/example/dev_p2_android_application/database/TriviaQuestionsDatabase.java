@@ -5,8 +5,12 @@ import android.os.AsyncTask;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.annotation.NonNull;
+
+import com.example.dev_p2_android_application.database.entities.TriviaQuestions;
+import com.example.dev_p2_android_application.database.typeConverters.LocalDateTypeConverter;
 
 @Database(entities = {TriviaQuestions.class}, version = 1, exportSchema = false)
     private static final String DATABASE_NAME = "trivia_question_database";
