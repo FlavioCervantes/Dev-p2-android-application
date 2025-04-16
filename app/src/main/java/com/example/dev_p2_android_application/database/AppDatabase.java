@@ -7,10 +7,11 @@ import androidx.room.RoomDatabase;
 
 import com.example.dev_p2_android_application.database.entities.ActiveDirectory;
 import com.example.dev_p2_android_application.database.entities.TriviaQuestions;
+import com.example.dev_p2_android_application.database.entities.playerScore;
 
 
 // Define the DBs name and version
-@Database(entities = {ActiveDirectory.class, TriviaQuestions.class}, version = 1, exportSchema = false)
+@Database(entities = {ActiveDirectory.class, TriviaQuestions.class, playerScore.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     // Abstract methods to access the  DAOs which are used for DB Operations
