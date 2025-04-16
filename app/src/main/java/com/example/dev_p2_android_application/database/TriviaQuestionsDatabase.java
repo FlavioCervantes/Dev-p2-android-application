@@ -2,17 +2,13 @@ package com.example.dev_p2_android_application.database;
 
 import android.content.Context;
 import android.os.AsyncTask;
-
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.annotation.NonNull;
 
-import com.example.dev_p2_android_application.database.databaseQuestions.TriviaQuestionsDAO;
-import com.example.dev_p2_android_application.database.databaseQuestions.entities.TriviaQuestions;
 @Database(entities = {TriviaQuestions.class}, version = 1, exportSchema = false)
-public abstract class TriviaQuestionsDatabase {
     private static final String DATABASE_NAME = "trivia_question_database";
     private static volatile TriviaQuestionsDatabase INSTANCE;
     public abstract TriviaQuestionsDAO triviaQuestionDao();
@@ -50,9 +46,6 @@ public abstract class TriviaQuestionsDatabase {
 
         @Override
         protected Void doInBackground(Void... voids){
-            dao.insert(new TriviaQuestions("Question", "a", "b", "c", "d", "e"));
-            dao.insert(new TriviaQuestions("suppose to be two","a", "b", "c", "d","e"));
-            dao.insert(new TriviaQuestions("suppose to be three","a", "b", "c","d","e"));
             return null;
         }
     }
