@@ -13,10 +13,7 @@ public abstract class AppDatabase extends RoomDatabase {
     // Abstract methods to access the  DAOs which are used for DB Operations
     public abstract ActiveDirectoryDAO userDao();
     public abstract TriviaQuestionsDAO triviaQuestionDao();
-
-    //TODO: Add Jeremey's DB [playerScore] here
-    //ensure the respective classes exist under ...**android_application.database;
-   // public abstract PlayerScoreDAO playerScoreDao();
+        public abstract PlayerScoreDAO playerScoreDao();
 
     // El Singleton instance
     //To ensures only one instance of the database is created throughout the app
