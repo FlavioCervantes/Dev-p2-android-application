@@ -10,8 +10,9 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.dev_p2_android_application.PlayerScoreDAO;
-import com.example.dev_p2_android_application.database.entities.playerScoreLog;
+import com.example.dev_p2_android_application.database.PlayerScoreDAO;
+import com.example.dev_p2_android_application.database.entities.playerScore;
+
 import com.example.dev_p2_android_application.database.typeConverters.LocalDateTypeConverter;
 
 import java.util.concurrent.ExecutorService;
@@ -19,7 +20,7 @@ import java.util.concurrent.Executors;
 
 @TypeConverters(LocalDateTypeConverter.class)
 
-@Database(entities = {playerScoreLog.class}, version = 1, exportSchema = false )
+@Database(entities = {playerScore.class}, version = 1, exportSchema = false )
 public abstract class playerScoreDatabase extends RoomDatabase{
 
     public static final String PLAYER_SCORE_TABLE = "playerScoreTable";

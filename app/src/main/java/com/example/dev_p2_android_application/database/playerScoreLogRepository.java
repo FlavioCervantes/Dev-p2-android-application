@@ -3,8 +3,8 @@ package com.example.dev_p2_android_application.database;
 import android.app.Application;
 import android.util.Log;
 
-import com.example.dev_p2_android_application.PlayerScoreDAO;
-import com.example.dev_p2_android_application.database.entities.playerScoreLog;
+import com.example.dev_p2_android_application.database.entities.playerScore;
+
 
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
@@ -14,7 +14,7 @@ import java.util.concurrent.Future;
 public class playerScoreLogRepository {
 
     private final PlayerScoreDAO playerScoreDAO;
-    private ArrayList<playerScoreLog> allLogs;
+    private ArrayList<playerScore> allLogs;
     private static playerScoreLogRepository repository;
 
     private playerScoreLogRepository(Application application){
@@ -23,7 +23,7 @@ public class playerScoreLogRepository {
         playerScoreDatabase db = playerScoreDatabase.getDatabase(application);
         this.playerScoreDAO = db.playerScoreDAO();
 
-        this.allLogs = (ArrayList<playerScoreLog>) this.playerScoreDAO.getAllRecords();
+        this.allLogs = (ArrayList<playerScore>) this.playerScoreDAO.getAllRecords();
 
     }
 
@@ -51,13 +51,13 @@ public class playerScoreLogRepository {
         return null;
     }
 
-    public ArrayList<playerScoreLog> getAllLogs() {
-        Future<ArrayList<playerScoreLog>> future = playerScoreDatabase.databaseWriteExecutor.submit(
-                new Callable<ArrayList<playerScoreLog>>() {
+    public ArrayList<playerScore> getAllLogs() {
+        Future<ArrayList<playerScore>> future = playerScoreDatabase.databaseWriteExecutor.submit(
+                new Callable<ArrayList<playerScore>>() {
 
                     @Override
-                    public ArrayList<playerScoreLog> call() throws Exception {
-                        return (ArrayList<playerScoreLog>) playerScoreDAO.getAllRecords();
+                    public ArrayList<playerScore> call() throws Exception {
+                        return (ArrayList<playerScore>) playerScoreDAO.getAllRecords();
                     }
                 }
         );
@@ -71,7 +71,7 @@ public class playerScoreLogRepository {
         return null;
     }
 
-    public void insertPlayerScoreLog(playerScoreLog PlayerScoreLog){
+    public void insertPlayerScoreLog(playerScore PlayerScoreLog){
         playerScoreDatabase.databaseWriteExecutor.execute(() ->{
 
             playerScoreDAO.insert(PlayerScoreLog);

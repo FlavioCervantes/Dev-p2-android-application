@@ -5,30 +5,34 @@ import android.os.AsyncTask;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.annotation.NonNull;
 
 import com.example.dev_p2_android_application.database.entities.TriviaQuestions;
+import com.example.dev_p2_android_application.database.typeConverters.LocalDateTypeConverter;
+
 @Database(entities = {TriviaQuestions.class}, version = 1, exportSchema = false)
-public abstract class TriviaQuestionsDatabase extends  RoomDatabase {
-    private static final String DATABASE_NAME = "trivia_question_database";
+@TypeConverters({LocalDateTypeConverter.class})
+public abstract class TriviaQuestionsDatabase extends RoomDatabase{
+    public static final String DATABASE_NAME = "trivia_question_database";
     private static volatile TriviaQuestionsDatabase INSTANCE;
     public abstract TriviaQuestionsDAO triviaQuestionDao();
 
     public static TriviaQuestionsDatabase getDatabase(final Context context){
-        if(INSTANCE == null){
-            synchronized(TriviaQuestionsDatabase.class){
-                if(INSTANCE == null){
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    TriviaQuestionsDatabase.class,
-                                    DATABASE_NAME)
-                            .fallbackToDestructiveMigration()
-                            .addCallback(addDefaultValues)
-                            .build();
-                }
+    if(INSTANCE == null){
+        synchronized(TriviaQuestionsDatabase.class){
+            if(INSTANCE == null){
+                INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                        TriviaQuestionsDatabase.class,
+                        DATABASE_NAME)
+                        .fallbackToDestructiveMigration()
+                        .addCallback(addDefaultValues)
+                        .build();
             }
         }
-        return INSTANCE;
+    }
+    return INSTANCE;
     }
 
 
@@ -48,26 +52,7 @@ public abstract class TriviaQuestionsDatabase extends  RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids){
-            dao.insert(new TriviaQuestions("Question suppose to be one", "a", "b", "c", "d", "a"));
-            dao.insert(new TriviaQuestions("suppose to be two","a", "b", "c", "d","b"));
-            dao.insert(new TriviaQuestions("suppose to be three","a", "b", "c","d","c"));
             return null;
         }
     }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
