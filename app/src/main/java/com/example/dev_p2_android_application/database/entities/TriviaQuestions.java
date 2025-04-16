@@ -1,4 +1,4 @@
-package com.example.dev_p2_android_application.database;
+package com.example.dev_p2_android_application.database.entities;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -6,32 +6,13 @@ import androidx.room.PrimaryKey;
 import java.util.Objects;
 
 
+
+/**
+ * This class represents a trivia question entity in the database.
+ * It contains fields for the question ID, type, options, and correct answer.
+ * The class is annotated with @Entity to indicate that it is a Room database entity.
+ */
 @Entity(tableName = "triviaQuestions")
-
-public class TriviaQuestions {
-    @PrimaryKey(autoGenerate = true)
-    public int questionId;
-    public String question;
-    public String optionA;
-    public String optionB;
-    public String optionC;
-    public String optionD;
-    public String correctAnswer;
-
-
-
-    public TriviaQuestions(String question, String optionA, String optionB, String optionC, String optionD, String correctAnswer) {
-        this.question = question;
-        this.optionA = optionA;
-        this.optionB = optionB;
-        this.optionC = optionC;
-        this.optionD = optionD;
-        this.correctAnswer = correctAnswer;
-    }
-
-    }
- /*
-
 public class TriviaQuestions {
     @PrimaryKey(autoGenerate = true)
     public int questionId;
@@ -42,7 +23,7 @@ public class TriviaQuestions {
     public String optionFour;
     public String correctAnswer;
 
-   /* public TriviaQuestions(String type, String optionOne, String optionTwo, String optionThree, String optionFour, String correctAnswer) {
+    public TriviaQuestions(String type, String optionOne, String optionTwo, String optionThree, String optionFour, String correctAnswer) {
         this.type = type;
         this.optionOne = optionOne;
         this.optionTwo = optionTwo;
@@ -119,4 +100,4 @@ public class TriviaQuestions {
     public int hashCode() {
         return Objects.hash(questionId, type, optionOne, optionTwo, optionThree, optionFour, correctAnswer);
     }
-}*/
+}

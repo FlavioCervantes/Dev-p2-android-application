@@ -5,6 +5,9 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.dev_p2_android_application.database.entities.ActiveDirectory;
+import com.example.dev_p2_android_application.database.entities.TriviaQuestions;
+
 
 // Define the DBs name and version
 @Database(entities = {ActiveDirectory.class, TriviaQuestions.class}, version = 1, exportSchema = false)

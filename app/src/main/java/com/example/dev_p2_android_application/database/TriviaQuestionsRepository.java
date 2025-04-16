@@ -3,9 +3,7 @@ package com.example.dev_p2_android_application.database;
 import android.app.Application;
 import android.os.AsyncTask;
 
-import com.example.dev_p2_android_application.database.TriviaQuestionsDAO;
-import com.example.dev_p2_android_application.database.TriviaQuestionsDatabase;
-import com.example.dev_p2_android_application.database.TriviaQuestions;
+import com.example.dev_p2_android_application.database.entities.TriviaQuestions;
 
 import java.util.List;
 

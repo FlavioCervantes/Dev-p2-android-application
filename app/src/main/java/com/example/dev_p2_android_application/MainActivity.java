@@ -4,16 +4,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
-import android.os.Bundle;
-import android.os.UserHandle;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import com.example.dev_p2_android_application.database.ActiveDirectory;
+import com.example.dev_p2_android_application.database.entities.ActiveDirectory;
 import com.example.dev_p2_android_application.database.ActiveDirectoryDAO;
 import com.example.dev_p2_android_application.database.AppDatabase;
 

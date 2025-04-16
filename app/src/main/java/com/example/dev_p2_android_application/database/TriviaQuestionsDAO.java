@@ -1,6 +1,6 @@
 package com.example.dev_p2_android_application.database;
 
-import com.example.dev_p2_android_application.database.TriviaQuestions;
+import com.example.dev_p2_android_application.database.entities.TriviaQuestions;
 import java.util.List;
 import androidx.room.Dao;
 import androidx.room.Query;

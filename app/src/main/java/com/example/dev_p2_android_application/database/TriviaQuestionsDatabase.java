@@ -7,11 +7,8 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
-import com.example.dev_p2_android_application.database.TriviaQuestionsDAO;
-import com.example.dev_p2_android_application.database.TriviaQuestions;
+import com.example.dev_p2_android_application.database.entities.TriviaQuestions;
 @Database(entities = {TriviaQuestions.class}, version = 1, exportSchema = false)
 public abstract class TriviaQuestionsDatabase extends  RoomDatabase {
     private static final String DATABASE_NAME = "trivia_question_database";
