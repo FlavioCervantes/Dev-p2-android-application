@@ -1,10 +1,10 @@
 package com.example.dev_p2_android_application.database;
 
-import android.os.UserHandle;
-
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Dao;
+
+import com.example.dev_p2_android_application.database.entities.ActiveDirectory;
 
 import java.util.List;
 
