@@ -1,5 +1,6 @@
 package com.example.dev_p2_android_application;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
@@ -17,6 +18,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //TODO: (Monica)
+        loginUser();
+
+        if (loggedInUserId == -1) {
+            Intent intent = LoginActivity.loginIntentFactory(getApplicationContext());
+            startActivity(intent);
+        }
 
         // Initialize the database
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
@@ -43,4 +52,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
         }
+
+    private void loginUser() {
+        //TODO: create login method (Monica)
     }
+}
