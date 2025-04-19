@@ -10,6 +10,10 @@ import com.example.dev_p2_android_application.database.AppDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
+    // TODO: Determine if this is necessary still (Monica)
+    int loggedInUserId = -1;
+    public static final String TAG = "TRIVIA";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
