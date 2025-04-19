@@ -58,5 +58,4 @@ dependencies {
     annotationProcessor("androidx.room:room-compiler:$room_version")
     //Adding this implementation to see if it helps support the room
     implementation("androidx.room:room-ktx:$room_version")
-
 }
