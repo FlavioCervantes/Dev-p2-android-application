@@ -44,10 +44,10 @@
             android:layout_marginBottom="16dp" />
 
         <Button
-            android:id="@+id/quitGameButtonUser"
+            android:id="@+id/logOutButtonUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/quit_game" />
+            android:text="@string/log_out" />
 
     </LinearLayout>
 
