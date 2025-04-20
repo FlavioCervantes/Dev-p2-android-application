@@ -1,3 +1,8 @@
+/*
+ * @abstract: Displays user interface using user_ui.xml and responds to buttons pressed
+ * Responsible for Play Game, High Scores, and Quit Game
+ */
+
 package com.example.dev_p2_android_application;
 
 import android.content.Intent;
@@ -19,6 +24,11 @@ public class PlayGame extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // TODO: Add listeners for 'high score' or 'quit' button?
+        // TODO: Add listeners for 'high score'
+        Button highScoreButton = findViewById(R.id.highScoreButtonUser);
+        highScoreButton.setOnClickListener(v -> {
+            Intent intent = new Intent(PlayGame.this, HighScoreActivity.class);
+            startActivity(intent);
+        });
     }
 }
