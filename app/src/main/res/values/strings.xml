@@ -4,4 +4,15 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="admin_panel">Admin Panel</string>
+    <string name="Welcome_Admin" />
+    <string name="quit_game">Quit Game</string>
+    <string name="high_scores">High_Scores</string>
+    <string name="play_game">Play_Game</string>
+    <string name="Welcome_User" />
+    <string name="option_one">Option One</string>
+    <string name="option_three">Option Three</string>
+    <string name="option_four">Option Four</string>
+    <string name="insert_question_here"><![CDATA[<Insert Question Here>]]></string>
+    <string name="triviagamelogo">TriviaGameLogo</string>
 </resources>

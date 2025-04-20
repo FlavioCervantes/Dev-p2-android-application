@@ -21,20 +21,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Set the content view to the activity_main layout
+        setContentView(R.layout.activity_main);
+
         //TODO: (Monica)
         loginUser();
 
 
         if (loggedInUserId == -1) {
+            // Redirect to LoginActivity if no user is logged in
             Intent intent = LoginActivity.loginIntentFactory(getApplicationContext());
             startActivity(intent);
-            return; // Exit the method to avoid further execution
+            finish(); // Close MainActivity to prevent returning to it
+            return;
         }
 
         //imageview setup
 
-        ImageView imageView = findViewById(R.id.companyLogo);
-        imageView.setImageResource(R.drawable.triviagamelogo);
+        // ImageView setup
+        ImageView imageView = findViewById(R.id.TriviaGameLogo);
+        imageView.setImageResource(R.drawable.trivia_game_logo);
 
 
         // Initialize the database
@@ -60,5 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void loginUser() {
         // TODO: Implement login logic
+        // Example: Check if a user is logged in and set loggedInUserId
+        // loggedInUserId = <valid user ID> if logged in, otherwise -1
     }
 }

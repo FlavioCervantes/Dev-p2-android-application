@@ -17,11 +17,11 @@
         android:gravity="center">
 
         <ImageView
-            android:id="@+id/companyLogo"
+            android:id="@+id/TriviaGameLogo"
             android:layout_width="200dp"
             android:layout_height="100dp"
             android:src="@drawable/trivia_game_logo"
-            android:contentDescription="Company Logo"
+            android:contentDescription="@string/triviagamelogo"
             android:layout_gravity="center" />
 
         <EditText
@@ -47,8 +47,10 @@
             android:layout_margin="20dp" />
     </LinearLayout>
 
-    <!-- Admin Panel -->
 
+
+
+    <!-- Timer and Scoreboard -->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
