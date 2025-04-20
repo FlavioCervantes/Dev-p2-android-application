@@ -3,8 +3,13 @@ package com.example.dev_p2_android_application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
+import androidx.annotation.MenuRes;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.room.Room;
@@ -57,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         private void loginUser(Bundle savedInstanceState){
             SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.app_name),
                     Context.MODE_PRIVATE);
+            //TODO: make sure I am using app_name correctly
             loggedInUserId = sharedPreferences.getInt(getString(R.string.app_name),LOGGED_OUT);
 
             if(loggedInUserId == LOGGED_OUT & savedInstanceState != null && savedInstanceState.containsKey(SAVED_INSTANCE_STATE_USERID_KEY)){
@@ -77,13 +83,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-
-        @Override
-        protected void onSavedInstanceState(@NonNull Bundle outState){
-            super.onSaveInstanceState(outState);
-            outState.putInt(SAVED_INSTANCE_STATE_USERID_KEY,loggedInUserId);
-            updateSharedPreference();
-        }
+    Override
+    protected void onSavedInstanceState(@NonNull Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putInt(SAVED_INSTANCE_STATE_USERID_KEY,loggedInUserId);
+        updateSharedPreference();
+    }
 
     private void updateSharedPreference() {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(
@@ -92,6 +97,40 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
         sharedPrefEditor.putInt(getString(R.string.app_name),loggedInUserId);
         sharedPrefEditor.apply();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        //Make sure logout is in login.xml
+        inflater.inflate(R.menu.logout_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu){
+        //TODO: make sure I am using main correctly
+        MenuItem item = menu.findItem(R.id.main);
+        item.setVisible(true);
+
+        if(user == null){
+            return false;
+        }
+        //TODO: figure out why I can't get username from activeDirectory
+        item.setTitle(user.getname());
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem item) {
+                showLogoutDialog();
+                return false;
+            }
+        });
+        return true;
+    }
+
+    private void showLogoutDialog() {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
+        final AlertDialog alertDialog = alertBuilder.create();
     }
 
 }
