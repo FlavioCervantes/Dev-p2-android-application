@@ -1,6 +1,7 @@
 package com.example.dev_p2_android_application;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 
+import com.example.dev_p2_android_application.database.ActiveDirectoryRepository;
 import com.example.dev_p2_android_application.database.entities.ActiveDirectory;
 import com.example.dev_p2_android_application.database.ActiveDirectoryDAO;
 import com.example.dev_p2_android_application.database.AppDatabase;
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String MAIN_ACTIVITY_USER_ID = "com.example.dev_p2_android_application.MAIN_ACTIVITY_USER_ID";
     private static final String SAVED_INSTANCE_STATE_USERID_KEY = "com.example.dev_p2_android_application.SAVED_INSTANCE_STATE_USERID_KEY";
     // TODO: Change the repository to whichever we will use.
-    private ActivieDirectoryRepository repository;
+    private ActiveDirectoryRepository repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +59,16 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(activeDirectory.username);
             }
         }).start();
+        //Initializing repository
+        repository = new ActiveDirectoryRepository(getApplication());
         }
 
         private void loginUser(Bundle savedInstanceState){
-            SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.app_name),
+            //TODO: create string value for preference_file_key
+            SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key),
                     Context.MODE_PRIVATE);
-            //TODO: make sure I am using app_name correctly
-            loggedInUserId = sharedPreferences.getInt(getString(R.string.app_name),LOGGED_OUT);
+            //TODO: create string value for preference_userId_key
+            loggedInUserId = sharedPreferences.getInt(getString(R.string.preference_userId_key),LOGGED_OUT);
 
             if(loggedInUserId == LOGGED_OUT & savedInstanceState != null && savedInstanceState.containsKey(SAVED_INSTANCE_STATE_USERID_KEY)){
                 loggedInUserId = savedInstanceState.getInt(SAVED_INSTANCE_STATE_USERID_KEY,LOGGED_OUT);
@@ -83,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-    Override
+    @Override
     protected void onSavedInstanceState(@NonNull Bundle outState){
         super.onSaveInstanceState(outState);
         outState.putInt(SAVED_INSTANCE_STATE_USERID_KEY,loggedInUserId);
@@ -91,11 +96,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateSharedPreference() {
+        //The two errors here will be fixed after the todo from line 67
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(
-                getString(R.string.app_name),
+                getString(R.string.preference_file_key),
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
-        sharedPrefEditor.putInt(getString(R.string.app_name),loggedInUserId);
+        sharedPrefEditor.putInt(getString(R.string.preference_userId_key),loggedInUserId);
         sharedPrefEditor.apply();
     }
 
@@ -131,6 +137,31 @@ public class MainActivity extends AppCompatActivity {
     private void showLogoutDialog() {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
         final AlertDialog alertDialog = alertBuilder.create();
+
+        alertBuilder.setMessage("Logout?");
+
+        alertBuilder.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                logout();
+            }
+        });
+
+        alertBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                alertDialog.dismiss();
+            }
+        });
+        alertBuilder.create().show();
+    }
+
+    private void logout() {
+        loggedInUserId = LOGGED_OUT;
+        updateSharedPreference();
+        getIntent().putExtra(MAIN_ACTIVITY_USER_ID,loggedInUserId);
+
+        startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
     }
 
 }
