@@ -15,7 +15,7 @@ import com.example.dev_p2_android_application.database.entities.playerScore;
 public abstract class AppDatabase extends RoomDatabase {
 
     // Abstract methods to access the  DAOs which are used for DB Operations
-    public abstract ActiveDirectoryDAO userDao();
+    public abstract ActiveDirectoryDAO ActiveDirectoryDao();
     public abstract TriviaQuestionsDAO triviaQuestionDao();
         public abstract PlayerScoreDAO playerScoreDao();
 

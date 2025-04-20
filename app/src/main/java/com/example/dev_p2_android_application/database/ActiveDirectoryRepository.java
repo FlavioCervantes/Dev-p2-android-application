@@ -4,6 +4,7 @@ package com.example.dev_p2_android_application.database;
 import android.app.Application;
 import com.example.dev_p2_android_application.database.ActiveDirectoryDAO;
 import com.example.dev_p2_android_application.database.TriviaGameDatabase;
+import com.example.dev_p2_android_application.database.entities.ActiveDirectory;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
