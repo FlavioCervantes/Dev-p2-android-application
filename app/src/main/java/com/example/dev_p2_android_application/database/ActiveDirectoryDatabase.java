@@ -16,7 +16,7 @@ import com.example.dev_p2_android_application.database.entities.ActiveDirectory;
 //TODO: Make ActiveDirectory class
 
 @Database(entities = {ActiveDirectory.class}, version = 1, exportSchema = false)
-public abstract class TriviaGameDatabase extends RoomDatabase {
+public abstract class ActiveDirectoryDatabase extends RoomDatabase {
     public abstract ActiveDirectoryDAO activeDirectoryDAO();
 
     private static volatile ActiveDirectoryDatabase INSTANCE;
