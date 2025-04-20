@@ -2,6 +2,8 @@ package com.example.dev_p2_android_application;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
@@ -22,10 +24,18 @@ public class MainActivity extends AppCompatActivity {
         //TODO: (Monica)
         loginUser();
 
+
         if (loggedInUserId == -1) {
             Intent intent = LoginActivity.loginIntentFactory(getApplicationContext());
             startActivity(intent);
+            return; // Exit the method to avoid further execution
         }
+
+        //imageview setup
+
+        ImageView imageView = findViewById(R.id.companyLogo);
+        imageView.setImageResource(R.drawable.triviagamelogo);
+
 
         // Initialize the database
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
@@ -33,12 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 .allowMainThreadQueries() // For simplicity, not recommended for production
                 .build();
 
-        // Access the DAO
-        ActiveDirectoryDAO activeDirectoryDAO = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "active_directory_database")
-                .allowMainThreadQueries() // For simplicity, not recommended for production
-                .build()
-                .userDao();
+        ActiveDirectoryDAO activeDirectoryDAO = db.activeDirectoryDAO();
 
         // Use the DAOs to perform database operations
         new Thread(() -> {
@@ -46,14 +51,14 @@ public class MainActivity extends AppCompatActivity {
             ActiveDirectory user = new ActiveDirectory();
             activeDirectoryDAO.insertUser(user);
 
-            //Get the values of all users and start the MainActivity
-            for(ActiveDirectory activeDirectory : activeDirectoryDAO.getAllUsers()) {
+            // Get the values of all users and log them
+            for (ActiveDirectory activeDirectory : activeDirectoryDAO.getAllUsers()) {
                 System.out.println(activeDirectory.username);
             }
         }).start();
-        }
+    }
 
     private void loginUser() {
-        //TODO: create login method (Monica)
+        // TODO: Implement login logic
     }
 }

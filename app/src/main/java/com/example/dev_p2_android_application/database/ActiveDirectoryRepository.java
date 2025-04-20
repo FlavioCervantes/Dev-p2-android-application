@@ -2,8 +2,8 @@ package com.example.dev_p2_android_application.database;
 
 
 import android.app.Application;
-import com.example.dev_p2_android_application.database.ActiveDirectoryDAO;
-import com.example.dev_p2_android_application.database.TriviaGameDatabase;
+
+import com.example.dev_p2_android_application.database.entities.ActiveDirectory;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -17,7 +17,7 @@ public class ActiveDirectoryRepository {
     private final ExecutorService executorService;
 
     public ActiveDirectoryRepository (Application application) {
-        TriviaGameDatabase db = TriviaGameDatabase.getDatabase(application);
+        AppDatabase db = AppDatabase.getDatabase(application);
         activeDirectoryDAO = db.activeDirectoryDAO();
         executorService = Executors.newSingleThreadExecutor();
     }
@@ -33,7 +33,7 @@ public class ActiveDirectoryRepository {
     }
 
     public String determineRole (String username) {
-        return activeDirectoryDAO.determineRole(username);
+        return activeDirectoryDAO.determineUser(username);
     }
 
     public List<ActiveDirectory> getAllUsers() {

@@ -11,7 +11,7 @@ public class TriviaQuestionsRepository {
     private final TriviaQuestionsDAO dao;
 
     public TriviaQuestionsRepository(Application application){
-        TriviaQuestionsDatabase db = TriviaQuestionsDatabase.getDatabase(application);
+        AppDatabase db = AppDatabase.getDatabase(application);
         this.dao = db.triviaQuestionDao();
     }
 

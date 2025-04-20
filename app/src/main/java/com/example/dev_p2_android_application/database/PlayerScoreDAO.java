@@ -7,9 +7,6 @@ import androidx.room.Query;
 
 import com.example.dev_p2_android_application.database.entities.playerScore;
 
-import com.example.dev_p2_android_application.database.playerScoreDatabase;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Dao
@@ -19,7 +16,7 @@ public interface PlayerScoreDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(playerScore PlayerScore);
 
-    @Query("SELECT * FROM " + playerScoreDatabase.PLAYER_SCORE_TABLE)
+    @Query("SELECT * FROM " + AppDatabase.PLAYER_SCORE_TABLE)
     List<playerScore> getAllRecords();
 
 }
