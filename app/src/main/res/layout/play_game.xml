@@ -21,6 +21,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Quit Button -->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/quitButton"
+        android:text="@string/quit"
+        android:textSize="12sp"
+        android:layout_margin="16dp"
+        android:padding="6dp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
     <!-- Option One -->
     <Button
         android:id="@+id/optionOne"

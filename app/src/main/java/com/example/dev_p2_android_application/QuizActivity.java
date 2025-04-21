@@ -5,6 +5,7 @@
 
 package com.example.dev_p2_android_application;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -31,5 +32,14 @@ public class QuizActivity extends AppCompatActivity {
         optionTwo = findViewById(R.id.optionTwo);
         optionThree = findViewById(R.id.optionThree);
         optionFour = findViewById(R.id.optionFour);
+
+        // QUIT button in upper right hand corner
+        Button quitButton = findViewById(R.id.quitButton);
+        quitButton.setOnClickListener(v -> {
+            Intent intent = new Intent(QuizActivity.this, PlayGame.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+            finish();
+        });
     }
 }
