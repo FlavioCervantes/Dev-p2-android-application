@@ -70,6 +70,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public static ExecutorService getDatabaseWriteExecutor() {
         return databaseWriteExecutor;
     }
+
+
 }
 
 
