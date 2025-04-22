@@ -3,6 +3,10 @@ package com.example.dev_p2_android_application.database.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.dev_p2_android_application.database.TriviaQuestionsDAO;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
