@@ -31,7 +31,7 @@ public class PlayGame extends AppCompatActivity {
             startActivity(intent);
         });
 
-        //TODO: Add listeners for 'quit game'
+        //TODO: Add listeners for 'log out'
         Button logOutButton = findViewById(R.id.logOutButtonUser);
         logOutButton.setOnClickListener(v -> {
             //TODO: Clear user activity here, when we get that done
