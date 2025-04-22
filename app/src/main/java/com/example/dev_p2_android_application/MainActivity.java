@@ -13,7 +13,7 @@ import com.example.dev_p2_android_application.database.AppDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
-    // TODO: Determine if this is necessary still (Monica)
+    // TODO: Determine if this is necessary still
     int loggedInUserId = -1;
     public static final String TAG = "TRIVIA";
 
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         // Set the content view to the activity_main layout
         setContentView(R.layout.activity_main);
 
-        //TODO: (Monica)
+        //TODO:
         loginUser();
 
 
