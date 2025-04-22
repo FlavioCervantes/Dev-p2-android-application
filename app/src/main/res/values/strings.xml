@@ -16,4 +16,5 @@
     <string name="insert_question_here"><![CDATA[<Insert Question Here>]]></string>
     <string name="triviagamelogo">TriviaGameLogo</string>
     <string name="log_out">Log Out</string>
+    <string name="quit">QUIT</string>
 </resources>
