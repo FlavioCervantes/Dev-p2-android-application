@@ -7,6 +7,7 @@ package com.example.dev_p2_android_application;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -18,8 +19,11 @@ public class QuizActivity extends AppCompatActivity {
     private TextView scoreText;
     private TextView timerText;
     private Button optionOne, optionTwo, optionThree, optionFour;
+    private CountDownTimer countDownTimer;
+    private static final long TIME = 30000;
+    private TextView timerCountDown;
 
-    // TODO: DETERMINE WHICH ANSWER IS CORRECT!!
+    // TODO: DETERMINE WHICH ANSWER IS CORRECT TO LINK BUTTONS !!
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,8 +47,26 @@ public class QuizActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
+        startTimer();
     }
 
+    // Starts timer as soon as question is shown
+    private void startTimer() {
+        countDownTimer = new CountDownTimer(TIME, 1000) {
+            @Override
+            public void onTick(long l) {
+                timerText.setText("Time Left: " + l/1000);
+            }
+
+            @Override
+            public void onFinish() {
+                timerText.setText("Out of Time!");
+                disableOptionButtons();
+            }
+        };
+        countDownTimer.start();
+    }
     // Responsible for checking if an answer is correct
     private void checkAnswer(Button selectedButton, String selectedAnswer, String correctAnswer) {
         if (selectedAnswer.equals(correctAnswer)) {
