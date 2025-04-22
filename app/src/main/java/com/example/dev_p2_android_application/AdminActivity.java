@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.dev_p2_android_application.database.ActiveDirectoryRepository;
+import com.example.dev_p2_android_application.database.entities.ActiveDirectory;
 
 public class AdminActivity extends AppCompatActivity{
 
@@ -24,7 +24,7 @@ public class AdminActivity extends AppCompatActivity{
 
     }
 
-    public ActiveDirectoryRepository repository;
+    public ActiveDirectory repository;
 
     @SuppressLint("WrongViewCast")
     @Override
