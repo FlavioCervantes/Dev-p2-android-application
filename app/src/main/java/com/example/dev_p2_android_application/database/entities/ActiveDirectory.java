@@ -9,6 +9,9 @@ public class ActiveDirectory {
     @PrimaryKey(autoGenerate = true)
     public int id;
 
+    @ColumnInfo(name = "isAdmin")
+    private boolean isAdmin;
+
     @ColumnInfo(name = "username")
     public String username;
 
@@ -60,5 +63,13 @@ public class ActiveDirectory {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = true;
     }
 }

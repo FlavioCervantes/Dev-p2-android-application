@@ -13,26 +13,27 @@ public class playerScore{
     @PrimaryKey(autoGenerate = true)
     public int gamesPlayed;
     public String loginID;
-    public String Wins;
+    public String wins;
     public String Losses;
 
-    public void PlayerScore(int gamesPlayed, String loginID, String wins, String losses) {
+    public playerScore(){}
+    public playerScore(int gamesPlayed, String loginID, String wins, String losses) {
         this.gamesPlayed = gamesPlayed;
         this.loginID = loginID;
-        this.Wins = wins;
+        this.wins = wins;
         this.Losses = losses;
     }
       @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         playerScore that = (playerScore) o;
-        return gamesPlayed == that.gamesPlayed && Objects.equals(loginID, that.loginID) && Objects.equals(Wins, that.Wins) && Objects.equals(Losses, that.Losses);
+        return gamesPlayed == that.gamesPlayed && Objects.equals(loginID, that.loginID) && Objects.equals(wins, that.wins) && Objects.equals(Losses, that.Losses);
     }
 
 
     @Override
     public int hashCode() {
-        return Objects.hash(gamesPlayed, loginID, Wins, Losses);
+        return Objects.hash(gamesPlayed, loginID, wins, Losses);
     }
 
     public int getGamesPlayed() {
@@ -52,11 +53,11 @@ public class playerScore{
     }
 
     public String getWins() {
-        return Wins;
+        return wins;
     }
 
     public void setWins(String wins) {
-        Wins = wins;
+        wins = wins;
     }
 
     public String getLosses() {

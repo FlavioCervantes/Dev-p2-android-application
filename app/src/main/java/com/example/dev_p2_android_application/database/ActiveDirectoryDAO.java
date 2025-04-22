@@ -1,5 +1,6 @@
 package com.example.dev_p2_android_application.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Dao;
@@ -26,5 +27,13 @@ public interface ActiveDirectoryDAO {
     @Query("SELECT * FROM ActiveDirectory")
     List<ActiveDirectory> getAllUsers();
 
+    @Query("SELECT * FROM ActiveDirectory WHERE username == :username")
+    LiveData<ActiveDirectory> getUserByUserName(String username);
+
+    @Query("SELECT * FROM ActiveDirectory WHERE username == :loggedInUserId")
+    LiveData<ActiveDirectory> getUserByUserId(int loggedInUserId);
+
+    @Query("SELECT * FROM activeDirectory ")
+        LiveData<List<ActiveDirectory>> getAllUsersLiveData();
 }
 

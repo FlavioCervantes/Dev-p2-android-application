@@ -7,8 +7,9 @@ import androidx.room.Query;
 import androidx.room.Insert;
 @Dao
 public  interface TriviaQuestionsDAO {
+
     @Insert
-    static void insert(TriviaQuestions triviaQuestions);
+    void insert(TriviaQuestions triviaQuestions);
 
     @Query("SELECT * FROM TriviaQuestions")
     List<TriviaQuestions> getAllQuestions();
