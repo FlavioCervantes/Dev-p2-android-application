@@ -20,7 +20,7 @@ public class playerScoreLogRepository {
     private playerScoreLogRepository(Application application){
 
 
-        playerScoreDatabase db = playerScoreDatabase.getDatabase(application);
+        AppDatabase db = AppDatabase.getDatabase(application);
         this.playerScoreDAO = db.playerScoreDAO();
 
         this.allLogs = (ArrayList<playerScore>) this.playerScoreDAO.getAllRecords();
@@ -32,7 +32,7 @@ public class playerScoreLogRepository {
         if(repository != null){
             return repository;
         }
-        Future<playerScoreLogRepository> future = playerScoreDatabase.databaseWriteExecutor.submit(
+        Future<playerScoreLogRepository> future = AppDatabase.getDatabaseWriteExecutor().submit(
 
                 new Callable<playerScoreLogRepository>() {
                     @Override
@@ -52,7 +52,7 @@ public class playerScoreLogRepository {
     }
 
     public ArrayList<playerScore> getAllLogs() {
-        Future<ArrayList<playerScore>> future = playerScoreDatabase.databaseWriteExecutor.submit(
+        Future<ArrayList<playerScore>> future = AppDatabase.getDatabaseWriteExecutor().submit(
                 new Callable<ArrayList<playerScore>>() {
 
                     @Override
@@ -72,7 +72,7 @@ public class playerScoreLogRepository {
     }
 
     public void insertPlayerScoreLog(playerScore PlayerScoreLog){
-        playerScoreDatabase.databaseWriteExecutor.execute(() ->{
+        AppDatabase.getDatabaseWriteExecutor().execute(() ->{
 
             playerScoreDAO.insert(PlayerScoreLog);
         });

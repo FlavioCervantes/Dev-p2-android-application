@@ -25,4 +25,6 @@ public interface ActiveDirectoryDAO {
     //Retrieve all the users
     @Query("SELECT * FROM ActiveDirectory")
     List<ActiveDirectory> getAllUsers();
+
 }
+

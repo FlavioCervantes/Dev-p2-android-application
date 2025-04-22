@@ -12,6 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Devp2androidapplication"
         tools:targetApi="31">
+
+        <!-- Login activity -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <!-- Quiz activity -->
+        <activity
+            android:name=".QuizActivity"
+            android:exported="true" />
+        <!-- PlayGame activity -->
+        <activity
+            android:name=".PlayGame"
+            android:exported="true" />
+        <!-- HighScore activity -->
+        <activity
+            android:name=".HighScoreActivity"
+            android:exported="true" />
+        <!-- Main entry point -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
