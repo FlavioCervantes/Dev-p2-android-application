@@ -48,23 +48,23 @@ public class AppRepository {
     }
 
 
-    public void insertTriviaQuestion(TriviaQuestions question) {
-        new InsertTriviaQuestionAsyncTask(triviaQuestionsDAO).execute(question);
-    }
+//    public void insertTriviaQuestion(TriviaQuestions question) {
+//        new InsertTriviaQuestionAsyncTask(triviaQuestionsDAO).execute(question);
+//    }
 
-    private static class InsertTriviaQuestionAsyncTask extends AsyncTask<TriviaQuestions, Void, Void> {
-        private final TriviaQuestionsDAO dao;
-
-        InsertTriviaQuestionAsyncTask(TriviaQuestionsDAO dao) {
-            this.dao = dao;
-        }
-
-        @Override
-        protected Void doInBackground(TriviaQuestions... questions) {
-            dao.insert(questions[0]);
-            return null;
-        }
-    }
+//    private static class InsertTriviaQuestionAsyncTask extends AsyncTask<TriviaQuestions, Void, Void> {
+//        private final TriviaQuestionsDAO dao;
+//
+//        InsertTriviaQuestionAsyncTask(TriviaQuestionsDAO dao) {
+//            this.dao = dao;
+//        }
+//
+//        @Override
+//        protected Void doInBackground(TriviaQuestions... questions) {
+//            dao.insert(questions[0]);
+//            return null;
+//        }
+//    }
 
     // ActiveDirectory operations
     public ArrayList<ActiveDirectory> getAllActiveDirectories() {
