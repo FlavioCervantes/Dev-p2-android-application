@@ -59,7 +59,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
 
     // Method to get the singleton instance of the database
-    public static AppDatabase getInstance(Context context) {
+    public static AppDatabase getInstance(final Context context) {
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {

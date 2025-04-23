@@ -24,6 +24,8 @@ import com.example.dev_p2_android_application.database.entities.playerScore;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 // Called on by PlayGame.java; Button pressed, user should be sent to questions page
 public class QuizActivity extends AppCompatActivity {
@@ -45,6 +47,7 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.play_game);
+        questionText = findViewById(R.id.questionText);
         //Initializing questionDAO
         AppDatabase db = AppDatabase.getDatabase(getApplication());
         questionsDAO = db.triviaQuestionDao();
@@ -74,6 +77,8 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void settingUpQuestions() {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
         if (questionsDAO.getAllQuestions().isEmpty()) {
             //Asking multiple questions by adding a for loop
             List<TriviaQuestions> newQuestions = new ArrayList<>();
@@ -85,10 +90,14 @@ public class QuizActivity extends AppCompatActivity {
             for (TriviaQuestions question : newQuestions) {
                 questionsDAO.insert(question);
             }
-            questionList = questionsDAO.getAllQuestions();
-            currentQuestionIndex = 0;
-            newQuestions();
         }
+            questionList = questionsDAO.getAllQuestions();
+
+            runOnUiThread(() -> {
+                 currentQuestionIndex = 0;
+                newQuestions();
+            });
+        });
     }
 
     private void newQuestions() {
@@ -103,6 +112,11 @@ public class QuizActivity extends AppCompatActivity {
         optionTwo.setText(current.getOptionTwo());
         optionThree.setText(current.getOptionThree());
         optionFour.setText(current.getOptionFour());
+        //This timer makes sure each question has a countdown.
+        if(countDownTimer != null){
+            countDownTimer.cancel();
+        }
+        startTimer();
 
         View.OnClickListener answerClickListener = view -> {
             Button clicked = (Button)view;
