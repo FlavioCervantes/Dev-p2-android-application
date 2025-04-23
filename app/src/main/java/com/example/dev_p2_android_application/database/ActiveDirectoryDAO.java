@@ -35,5 +35,9 @@ public interface ActiveDirectoryDAO {
 
     @Query("SELECT * FROM activeDirectory ")
         LiveData<List<ActiveDirectory>> getAllUsersLiveData();
+    //TODO: change the player_score_table to active directory table
+    @Query("DELETE FROM " + AppDatabase.PLAYER_SCORE_TABLE)
+    void deleteAll();
+
 }
 
