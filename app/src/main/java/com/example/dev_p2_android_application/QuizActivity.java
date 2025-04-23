@@ -79,22 +79,22 @@ public class QuizActivity extends AppCompatActivity {
     private void settingUpQuestions() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
-        if (questionsDAO.getAllQuestions().isEmpty()) {
-            //Asking multiple questions by adding a for loop
-            List<TriviaQuestions> newQuestions = new ArrayList<>();
-            newQuestions.add(new TriviaQuestions("What character is known as the Pikachu of Nintendo?", "Sonic", "Mario", "Dimitri", "Link", "Mario"));
-            newQuestions.add(new TriviaQuestions("What character is known as the Pikachu of Nintendo?", "Sonic", "Mario", "Dimitri", "Link", "Mario"));
-            newQuestions.add(new TriviaQuestions("What character is known as the Pikachu of Nintendo?", "Sonic", "Mario", "Dimitri", "Link", "Mario"));
-            newQuestions.add(new TriviaQuestions("What character is known as the Pikachu of Nintendo?", "Sonic", "Mario", "Dimitri", "Link", "Mario"));
+            if (questionsDAO.getAllQuestions().isEmpty()) {
+                //Asking multiple questions by adding a for loop
+                List<TriviaQuestions> newQuestions = new ArrayList<>();
+                newQuestions.add(new TriviaQuestions("What character is known as the Pikachu of Nintendo?", "Sonic", "Mario", "Dimitri", "Link", "Mario"));
+                newQuestions.add(new TriviaQuestions("What character is known as the Pikachu of Nintendo?", "Sonic", "Mario", "Dimitri", "Link", "Mario"));
+                newQuestions.add(new TriviaQuestions("What character is known as the Pikachu of Nintendo?", "Sonic", "Mario", "Dimitri", "Link", "Mario"));
+                newQuestions.add(new TriviaQuestions("What character is known as the Pikachu of Nintendo?", "Sonic", "Mario", "Dimitri", "Link", "Mario"));
 
-            for (TriviaQuestions question : newQuestions) {
-                questionsDAO.insert(question);
+                for (TriviaQuestions question : newQuestions) {
+                    questionsDAO.insert(question);
+                }
             }
-        }
             questionList = questionsDAO.getAllQuestions();
 
             runOnUiThread(() -> {
-                 currentQuestionIndex = 0;
+                currentQuestionIndex = 0;
                 newQuestions();
             });
         });

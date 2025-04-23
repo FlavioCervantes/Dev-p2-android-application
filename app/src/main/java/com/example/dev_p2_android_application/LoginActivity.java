@@ -3,6 +3,7 @@ package com.example.dev_p2_android_application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         LiveData<ActiveDirectory> userObserver = repository.getUserByUserName(username);
         userObserver.observe(this, user -> {
             if(user != null){
+                Log.d("LoginActivity", "User found: " + user.getUsername());
                 String password = binding.password.getText().toString();
                 if(password.equals(user.getPassword())){
                     startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(),user.getId()));

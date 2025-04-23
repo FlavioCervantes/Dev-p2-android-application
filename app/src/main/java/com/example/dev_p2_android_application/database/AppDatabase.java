@@ -97,10 +97,10 @@ public abstract class AppDatabase extends RoomDatabase {
                 userDao.insertUser(admin);
 
                 ActiveDirectory user = new ActiveDirectory();
-                admin.setUsername("user");
-                admin.setPassword("user");
-                admin.setRole("user");
-                admin.setFullName("User");
+                user.setUsername("user");
+                user.setPassword("user");
+                user.setRole("user");
+                user.setFullName("User");
                 userDao.insertUser(user);
 
 

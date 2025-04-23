@@ -1,6 +1,7 @@
 package com.example.dev_p2_android_application.database;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Dao;
@@ -14,6 +15,8 @@ import java.util.List;
 public interface ActiveDirectoryDAO {
     @Insert
     void insertUser(ActiveDirectory user);
+    @Delete
+    void deleteUser(ActiveDirectory user);
 
     // Ensure password matches with entered username
     @Query("SELECT * FROM ActiveDirectory WHERE userName = :username AND password = :password LIMIT 1")
@@ -27,7 +30,7 @@ public interface ActiveDirectoryDAO {
     @Query("SELECT * FROM ActiveDirectory")
     List<ActiveDirectory> getAllUsers();
 
-    @Query("SELECT * FROM ActiveDirectory WHERE username == :username")
+    @Query("SELECT * FROM ActiveDirectory WHERE username == :username LIMIT 1")
     LiveData<ActiveDirectory> getUserByUserName(String username);
 
     @Query("SELECT * FROM ActiveDirectory WHERE username == :loggedInUserId")
@@ -36,7 +39,7 @@ public interface ActiveDirectoryDAO {
     @Query("SELECT * FROM activeDirectory ")
         LiveData<List<ActiveDirectory>> getAllUsersLiveData();
     //TODO: change the player_score_table to active directory table
-    @Query("DELETE FROM " + AppDatabase.PLAYER_SCORE_TABLE)
+    @Query("DELETE FROM activeDirectory")
     void deleteAll();
 
 }
