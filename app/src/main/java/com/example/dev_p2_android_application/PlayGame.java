@@ -17,7 +17,7 @@ public class PlayGame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_ui);
 
-        Button playGameButton = findViewById(R.id.playGameButton);
+        Button playGameButton = findViewById(R.id.playGameButtonUser);
         playGameButton.setOnClickListener(v -> {
             // TODO: Verify it is QuizActivity that will display questions
             Intent intent = new Intent(PlayGame.this, QuizActivity.class);

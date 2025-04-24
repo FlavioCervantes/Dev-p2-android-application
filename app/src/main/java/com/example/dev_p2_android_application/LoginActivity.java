@@ -71,9 +71,10 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(LoginActivity.this, PlayGame.class);
                             intent.putExtra("USER_ID", loggedInUserId);
                             startActivity(intent);
+                            finish();
                         });
                     }
-                    finish();
+                   // finish();
                 } else {
                     toastmaker("Invalid password");
                 }

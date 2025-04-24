@@ -18,14 +18,14 @@
         android:clickable="true"
         android:focusable="true">
 
-     <!--   <ImageView
+        <ImageView
             android:id="@+id/TriviaGameLogo"
             android:layout_width="200dp"
             android:layout_height="100dp"
-            android:src="@drawable/trivia_game_logo"
+            android:src="@drawable/triviagamelogo"
             android:contentDescription="@string/triviagamelogo"
             android:layout_gravity="center" />
-            -->
+
 
         <EditText
             android:id="@+id/username"
