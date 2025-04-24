@@ -40,9 +40,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "TriviaGame";
     private int loggedInUserId = -1;
     private ActiveDirectory user;
-    private TriviaQuestionsDAO questionsDAO;
-    private PlayerScoreDAO playerScoreDAO;
-    private ActiveDirectoryDAO activeDirectoryDAO;
     private static final int LOGGED_OUT = -1;
     private static final String MAIN_ACTIVITY_USER_ID = "com.example.dev_p2_android_application.MAIN_ACTIVITY_USER_ID";
     private static final String SAVED_INSTANCE_STATE_USERID_KEY = "com.example.dev_p2_android_application.SAVED_INSTANCE_STATE_USERID_KEY";
@@ -52,113 +49,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.password),
-                Context.MODE_PRIVATE);
-        loggedInUserId = sharedPreferences.getInt(getString(R.string.username),
-                LOGGED_OUT);
-
-        Log.d("MainActivity", "Retrieved logged-in user ID: " + loggedInUserId);
-
-        if(loggedInUserId == LOGGED_OUT){
-            Intent intent = LoginActivity.loginIntentFactory(getApplicationContext());
-            startActivity(intent);
-            finish();
-            return;
-        }
-
-        ActivityMainBinding binding = ActivityMainBinding.inflate((getLayoutInflater()));
-        setContentView(binding.getRoot());
 
         repository = AppRepository.getRepository(getApplication());
-
         loginUser(savedInstanceState);
-
-        LiveData<ActiveDirectory> userObserver = repository.getUserByUserId(loggedInUserId);
-
-        userObserver.observe(this,user -> {
-            this.user = user;
-            if(this.user != null){
-                if(this.user.isAdmin()){
-                    AdminUiBinding adminUiBinding = AdminUiBinding.inflate(getLayoutInflater());
-                    setContentView(adminUiBinding.getRoot());
-
-                    adminUiBinding.quitGameButton.setOnClickListener(v -> showQuit());
-
-                    adminUiBinding.playGameButton.setOnClickListener(v -> {
-                        Intent intent = new Intent(MainActivity.this, PlayGame.class);
-                        intent.putExtra("USER_ID", loggedInUserId);
-                        startActivity(intent);
-                    });
-                } else {
-                    UserUiBinding userUiBinding = UserUiBinding.inflate(getLayoutInflater());
-                    setContentView(userUiBinding.getRoot());
-
-                    userUiBinding.quitGameButton.setOnClickListener(v -> showQuit());
-
-                    userUiBinding.playGameButtonUser.setOnClickListener(v -> {
-                        Intent intent = new Intent(MainActivity.this, PlayGame.class);
-                        intent.putExtra("USER_ID", loggedInUserId);
-                        startActivity(intent);
-                    });
-                }
-                invalidateOptionsMenu();
-            }
-        });
-
-        /*Button playButton = findViewById(R.id.playGameButtonUser);
-        playButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, PlayGame.class);
-            intent.putExtra("USER_ID", loggedInUserId);
-            startActivity(intent);
-        });*/
-        // Initialize the database
-        /*AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                        AppDatabase.class, "active_directory_database")
-                .allowMainThreadQueries() // For simplicity, not recommended for production
-                .build();
-
-        // Access the DAOs
-        questionsDAO = db.triviaQuestionDao();
-        playerScoreDAO = db.playerScoreDAO();
-        activeDirectoryDAO = db.activeDirectoryDAO();
-
-        //Initializing repository
-        repository = AppRepository.getRepository(getApplication());
-
-        // Use the DAOs to perform database operations
-        new Thread(() -> {
-            // Example: Insert a new user
-            ActiveDirectory user = new ActiveDirectory();
-            activeDirectoryDAO.insertUser(user);
-
-            //Get the values of all users and start the MainActivity
-            for(ActiveDirectory activeDirectory : activeDirectoryDAO.getAllUsers()) {
-                System.out.println(activeDirectory.username);
-            }
-
-            loginUser(savedInstanceState);
-
-            //TODO: maybe I can make this a method database operations
-            LiveData<List<ActiveDirectory>> allUsersLiveData = activeDirectoryDAO.getAllUsersLiveData();
-            allUsersLiveData.observe(this, activeDirectories -> {
-                for(ActiveDirectory activeDirectory : activeDirectories){
-                    System.out.println(activeDirectory.username);
-                }
-            });
-            //TODO: Make sure playGameButtonUser is the right button
-            Button playButton = findViewById(R.id.playGameButtonUser);
-            playButton.setOnClickListener( v -> {
-                    Intent intent = new Intent(MainActivity.this, PlayGame.class);
-                    intent.putExtra("USER_ID", loggedInUserId);
-                    startActivity(intent);
-            });
-        }).start();*/
     }
 
     private void loginUser(Bundle savedInstanceState){
-       // EditText usernameInput = findViewById(R.id.username);
-       // Button loginButton = findViewById(R.id.loginButton);
-
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.password),
                 Context.MODE_PRIVATE);
         loggedInUserId = sharedPreferences.getInt(getString(R.string.username),LOGGED_OUT);
@@ -171,28 +67,23 @@ public class MainActivity extends AppCompatActivity {
         }
         if(loggedInUserId == LOGGED_OUT){
             startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
+            //TOOD: DO i NEED THIS NEXT LINE
+            //finish();
             return;
         }
-        // TODO:Create getUserByUserId method in the repository
         LiveData<ActiveDirectory> userObserver = repository.getUserByUserId(loggedInUserId);
-
-            userObserver.observe(this, user -> {
-                this.user = user;
-                if (this.user != null) {
-                    if (this.user.isAdmin()) {
-                        AdminUiBinding adminUiBinding = AdminUiBinding.inflate(getLayoutInflater());
-                        setContentView(adminUiBinding.getRoot());
-                        //Quit button
-                        adminUiBinding.quitGameButton.setOnClickListener(v -> showQuit());
-                    } else {
-                        UserUiBinding userUiBinding = UserUiBinding.inflate(getLayoutInflater());
-                        setContentView(userUiBinding.getRoot());
-                        //Quit button
-                        userUiBinding.quitGameButton.setOnClickListener(v -> showQuit());
-                    }
-                    invalidateOptionsMenu();
+        userObserver.observe(this, user -> {
+            this.user = user;
+            if (this.user != null) {
+                if (this.user.isAdmin()) {
+                    AdminUiBinding adminUiBinding = AdminUiBinding.inflate(getLayoutInflater());
+                    setContentView(adminUiBinding.getRoot());
+                } else {
+                    UserUiBinding userUiBinding = UserUiBinding.inflate(getLayoutInflater());
+                    setContentView(userUiBinding.getRoot());
                 }
-            });
+            }
+        });
 
     }
     @Override
@@ -210,73 +101,5 @@ public class MainActivity extends AppCompatActivity {
         sharedPrefEditor.putInt(getString(R.string.username),loggedInUserId);
         sharedPrefEditor.apply();
     }
-    private void showQuit() {
-        new AlertDialog.Builder(this)
-                .setTitle("Quit Game")
-                .setMessage("Are you sure you want to quit?")
-                .setPositiveButton("yes", ((dialog, which) -> finishAffinity()))
-                .setNegativeButton("No", null)
-                .show();
-    }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inflater = getMenuInflater();
-        //TODO: Make sure there is a logout_menu in strings.xml
-        //inflater.inflate(R.menu.logOutButtonUser,menu);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu){
-        //TODO: Create string for logoutMenuItem, make sure this works for both admin and user
-        MenuItem item = menu.findItem(R.id.logOutButtonUser);
-        item.setVisible(true);
-
-        if(user != null){
-            item.setTitle(user.getUsername());
-            item.setOnMenuItemClickListener(item1 -> {
-                showLogoutDialog();
-                return false;
-            });
-        }
-        return true;
-    }
-
-    private void showLogoutDialog() {
-        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MainActivity.this);
-        final AlertDialog alertDialog = alertBuilder.create();
-
-        alertBuilder.setMessage("Logout?");
-
-        alertBuilder.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                logout();
-            }
-        });
-
-        alertBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                alertDialog.dismiss();
-            }
-        });
-        alertBuilder.create().show();
-    }
-
-    private void logout() {
-        loggedInUserId = LOGGED_OUT;
-        updateSharedPreference();
-        //getIntent().putExtra(MAIN_ACTIVITY_USER_ID,loggedInUserId);
-
-        startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
-        finish();
-    }
-    /*static Intent mainActivityIntentFactory(Context context, int userId){
-        Intent intent = new Intent(context, MainActivity.class);
-        intent.putExtra(MAIN_ACTIVITY_USER_ID,userId);
-        return intent;
-    }*/
 }

@@ -22,14 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- Admin Activity -->
-        <activity
-            android:name=".AdminActivity"
-            android:exported="true" />
-        <!-- User Activity -->
-        <activity
-            android:name=".UserActivity"
-            android:exported="true" />
         <!-- Quiz activity -->
         <activity
             android:name=".QuizActivity"

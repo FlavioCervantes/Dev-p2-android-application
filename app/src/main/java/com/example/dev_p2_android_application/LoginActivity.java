@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,13 +13,12 @@ import androidx.lifecycle.LiveData;
 import com.example.dev_p2_android_application.database.AppRepository;
 import com.example.dev_p2_android_application.database.entities.ActiveDirectory;
 import com.example.dev_p2_android_application.databinding.ActivityMainBinding;
-import com.example.dev_p2_android_application.databinding.AdminUiBinding;
-import com.example.dev_p2_android_application.databinding.UserUiBinding;
+
 
 public class LoginActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private AppRepository repository;
-    private int loggedInUserId;
+    private int loggedInUserId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -57,25 +55,18 @@ public class LoginActivity extends AppCompatActivity {
                     editor.apply();
 
                     if(user.getRole().equalsIgnoreCase("admin")){
-                        //AdminUiBinding adminUiBinding = AdminUiBinding.inflate(getLayoutInflater());
-                       // setContentView(adminUiBinding.getRoot());
-                        //adminUiBinding.playGameButton.setOnClickListener(v -> {
-                            Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, PlayGame.class);
                             intent.putExtra("USER_ID", loggedInUserId);
+                            intent.putExtra("USER_ROLE", "admin");
                             startActivity(intent);
                             finish();
-                        //});
                     } else if(user.getRole().equalsIgnoreCase("user")){
-                        //UserUiBinding userUiBinding = UserUiBinding.inflate(getLayoutInflater());
-                        //setContentView(userUiBinding.getRoot());
-                        //userUiBinding.playGameButtonUser.setOnClickListener(v -> {
-                            Intent intent = new Intent(LoginActivity.this, UserActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, PlayGame.class);
                             intent.putExtra("USER_ID", loggedInUserId);
+                            intent.putExtra("USER_ROLE","user");
                             startActivity(intent);
                             finish();
-                       // });
                     }
-                   // finish();
                 } else {
                     toastmaker("Invalid password");
                 }
