@@ -79,6 +79,7 @@ public class QuizActivity extends AppCompatActivity {
         if (currentQuestionIndex >= questionList.size()) {
             String username = getIntent().getStringExtra("username");
 
+
             // Insert score in background and then navigate
             AppDatabase.getDatabaseWriteExecutor().execute(() -> {
                 db.highScoreDAO().insert(new HighScore(username, score));

@@ -27,7 +27,17 @@ public class HighScoreAdapter extends RecyclerView.Adapter<HighScoreAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int pos) {
         HighScore score = highScoreList.get(pos);
-        holder.userTextView.setText(score.username);
+//        holder.userTextView.setText(score.username);
+//        holder.scoreTextView.setText("Score: " + score.score);
+
+        if (score.username != null) {
+            holder.userTextView.setText(score.username);
+        }
+        else {
+            holder.userTextView.setText("WHAAAAAAAT");
+        }
+
+        // score
         holder.scoreTextView.setText("Score: " + score.score);
     }
 
