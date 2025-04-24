@@ -3,6 +3,17 @@ plugins {
 }
 
 android {
+    dependencies {
+        // JUnit for unit testing
+        testImplementation("junit:junit:4.13.2")
+
+        // Mockito for mocking dependencies
+        testImplementation("org.mockito:mockito-core:4.8.0")
+
+        // Android-specific test utilities
+        testImplementation("androidx.test.ext:junit:1.1.5")
+        testImplementation("androidx.test:core:1.5.0")
+    }
     namespace = "com.example.dev_p2_android_application"
     compileSdk = 35
 
@@ -15,6 +26,9 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
+
+
 
 
     buildFeatures {
@@ -34,10 +48,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
 }
 
 dependencies {
     implementation(libs.recyclerview)
+    androidTestImplementation(libs.junit.jupiter)
     val room_version = "2.6.1"
 
     implementation("androidx.room:room-runtime:$room_version")
@@ -54,4 +70,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+
 }
+

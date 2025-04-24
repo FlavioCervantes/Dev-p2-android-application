@@ -11,6 +11,7 @@ roomCommonJvm = "2.7.0"
 sqliteAndroid = "2.5.0"
 roomRuntimeAndroid = "2.7.0"
 recyclerview = "1.1.0"
+junitJupiter = "5.8.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -24,6 +25,7 @@ room-common-jvm = { group = "androidx.room", name = "room-common-jvm", version.r
 sqlite-android = { group = "androidx.sqlite", name = "sqlite-android", version.ref = "sqliteAndroid" }
 room-runtime-android = { group = "androidx.room", name = "room-runtime-android", version.ref = "roomRuntimeAndroid" }
 recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiter" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
