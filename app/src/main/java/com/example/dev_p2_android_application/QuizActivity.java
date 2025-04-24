@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.example.dev_p2_android_application.database.AppDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,9 @@ public class QuizActivity extends AppCompatActivity {
     private List<Questions> questionList;
     private int currentQuestionIndex = 0;
     private int score = 0;
+
+    // database declaration
+    private AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,8 @@ public class QuizActivity extends AppCompatActivity {
             finish();
         });
 
+        db = AppDatabase.getInstance(this);
+
         // Sample questions
         questionList = new ArrayList<>();
         questionList.add(new Questions("What does JVM stand for?",
@@ -61,23 +68,30 @@ public class QuizActivity extends AppCompatActivity {
         loadNextQuestion(); // Start with the first question
     }
 
+    // Launches next question
     private void loadNextQuestion() {
         if (countDownTimer != null) {
-            countDownTimer.cancel(); // cancel previous timer
+            // cancel previous timer
+            countDownTimer.cancel();
         }
 
+        // Reached the end of questions --> High Score page
         if (currentQuestionIndex >= questionList.size()) {
-            questionText.setText("All questions answered!");
-            optionOne.setVisibility(Button.GONE);
-            optionTwo.setVisibility(Button.GONE);
-            optionThree.setVisibility(Button.GONE);
-            optionFour.setVisibility(Button.GONE);
-            timerText.setText("");
+            String username = getIntent().getStringExtra("username");
+
+            // save score to db
+            db.highScoreDAO().insert(new HighScore(username, score));
+
+            // redirect to High Score page
+            Intent intent = new Intent(QuizActivity.this, HighScoreActivity.class);
+            startActivity(intent);
+            finish();
             return;
         }
 
         resetButtons();
 
+        // load next question. sets each button with answer
         Questions current = questionList.get(currentQuestionIndex);
         questionText.setText(current.getQuestion());
         optionOne.setText(current.getOptions()[0]);
@@ -102,7 +116,8 @@ public class QuizActivity extends AppCompatActivity {
                 disableOptionButtons();
                 loadNextDelay();
             }
-        }.start();
+        }
+        .start();
     }
 
     private void checkAnswer(Button selectedButton, String selectedAnswer, String correctAnswer) {
@@ -131,7 +146,7 @@ public class QuizActivity extends AppCompatActivity {
         Button[] buttons = {optionOne, optionTwo, optionThree, optionFour};
         for (Button b : buttons) {
             b.setEnabled(true);
-            b.setBackgroundColor(ContextCompat.getColor(this, android.R.color.darker_gray));
+            b.setBackgroundColor(ContextCompat.getColor(this, android.R.color.system_control_normal_light));
         }
     }
 
