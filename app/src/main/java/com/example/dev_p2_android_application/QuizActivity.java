@@ -79,15 +79,20 @@ public class QuizActivity extends AppCompatActivity {
         if (currentQuestionIndex >= questionList.size()) {
             String username = getIntent().getStringExtra("username");
 
-            // save score to db
-            db.highScoreDAO().insert(new HighScore(username, score));
+            // Insert score in background and then navigate
+            AppDatabase.getDatabaseWriteExecutor().execute(() -> {
+                db.highScoreDAO().insert(new HighScore(username, score));
 
-            // redirect to High Score page
-            Intent intent = new Intent(QuizActivity.this, HighScoreActivity.class);
-            startActivity(intent);
-            finish();
+                runOnUiThread(() -> {
+                    Intent intent = new Intent(QuizActivity.this, HighScoreActivity.class);
+                    startActivity(intent);
+                    finish();
+                });
+            });
+
             return;
         }
+
 
         resetButtons();
 
