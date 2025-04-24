@@ -1,6 +1,9 @@
 package com.example.dev_p2_android_application;
 
+import static com.example.dev_p2_android_application.R.id.*;
+
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,8 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.dev_p2_android_application.databinding.ActivityMainBinding;
 import com.example.dev_p2_android_application.database.entities.ActiveDirectory;
+import com.example.dev_p2_android_application.PlayGame;
+import com.example.dev_p2_android_application.QuizActivity;
+
+import org.jetbrains.annotations.Contract;
 
 public class AdminActivity extends AppCompatActivity{
 
@@ -18,15 +25,17 @@ public class AdminActivity extends AppCompatActivity{
     private EditText questionInput, optionA, optionB, optionC, optionD, correctAnswer;
     private Button publishBtn;
     private TextView statusView;
+    private ActivityMainBinding binding;
     public String playGame;
     public String checkScore;
-    public void quitGame(){
 
-    }
+    ActiveDirectory obj = new ActiveDirectory();
+    String roles = obj.role;
+
 
     public ActiveDirectory repository;
 
-    @SuppressLint("WrongViewCast")
+    @SuppressLint({"WrongViewCast", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,10 +48,85 @@ public class AdminActivity extends AppCompatActivity{
         }
 
         playGame = String.valueOf(findViewById(R.id.playGameButton));
-        checkScore = String.valueOf(findViewById(R.id.highScoreButton));
-        quitGame() = findViewById(R.id.quitButton);
 
-        questionInput = findViewById(R.id.editTextQuestion);
+
+        Button playButton = findViewById(R.id.playGameButton);
+
+        
+        checkScore = String.valueOf(findViewById(R.id.highScoreButton));
+
+        Button checkScoreButton = findViewById(R.id.highScoreButton);
+
+        Button quitGame = findViewById(R.id.quitButton);
+
+
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                
+            }
+        });
+
+
+        checkScoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+            }
+        });
+
+        quitGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                finish();
+            }
+        });
+
+
+        /**
+        questionInput = findViewById(R.id.editQuestionButton);
+
+        
+
+        questionInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                questionEdits();
+            }
+        });
+
+        publishBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                publishQuestion();
+            }
+        });
+         */
+    }
+
+
+    private boolean isAdminAuthenticated() {
+
+        if (roles == "admin"){
+
+            return true;
+        }
+        else {
+
+            return false;
+        }
+
+
+    }
+
+
+    /**
+    private void questionEdits() {
+
         optionA = findViewById(R.id.editTextOptionA);
         optionB = findViewById(R.id.editTextOptionB);
         optionC = findViewById(R.id.editTextOptionC);
@@ -51,17 +135,6 @@ public class AdminActivity extends AppCompatActivity{
         publishBtn = findViewById(R.id.buttonPublish);
         statusView = findViewById(R.id.statusText);
 
-        publishBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                publishQuestion();
-            }
-        });
-    }
-
-    private boolean isAdminAuthenticated() {
-        // Dummy check, replace with real authentication (e.g., FirebaseAuth or API check)
-        return true;
     }
 
     private void publishQuestion() {
@@ -80,6 +153,8 @@ public class AdminActivity extends AppCompatActivity{
         // TODO: Save to backend
         statusView.setText("Question Published!");
     }
+
+     */
 
 
 }
