@@ -1,30 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:padding="10dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="16dp">
+    android:layout_height="wrap_content">
 
-    <!-- Date -->
     <TextView
-        android:id="@+id/dateTextView"
-        android:layout_width="wrap_content"
+        android:id="@+id/usernameTextView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="04/20/2025"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginEnd="16dp" />
+        android:text="Username"
+        android:layout_weight="1"
+        android:layout_marginLeft="40dp"/>
 
-    <!-- Score -->
     <TextView
         android:id="@+id/scoreTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Score: 9999"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateTextView"
-        android:layout_marginTop="4dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:text="Score"
+        android:layout_marginRight="40dp"/>
+</LinearLayout>

@@ -6,6 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.dev_p2_android_application.HighScore;
 import com.example.dev_p2_android_application.database.entities.ActiveDirectory;
 import com.example.dev_p2_android_application.database.entities.TriviaQuestions;
 import com.example.dev_p2_android_application.database.entities.playerScore;
@@ -15,7 +16,7 @@ import java.util.concurrent.Executors;
 
 
 // Define the DBs name and version
-@Database(entities = {ActiveDirectory.class, TriviaQuestions.class, playerScore.class}, version = 1, exportSchema = false)
+@Database(entities = {ActiveDirectory.class, TriviaQuestions.class, playerScore.class, HighScore.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static volatile AppDatabase INSTANCE;
@@ -44,6 +45,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract PlayerScoreDAO playerScoreDAO();
 
     public abstract TriviaQuestionsDAO triviaQuestionDao();
+
+    public abstract HighScoreDAO highScoreDAO();
 
     // El Singleton instance
     //To ensures only one instance of the database is created throughout the app
