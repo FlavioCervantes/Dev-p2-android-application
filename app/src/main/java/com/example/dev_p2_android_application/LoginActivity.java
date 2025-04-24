@@ -57,22 +57,23 @@ public class LoginActivity extends AppCompatActivity {
                     editor.apply();
 
                     if(user.getRole().equalsIgnoreCase("admin")){
-                        AdminUiBinding adminUiBinding = AdminUiBinding.inflate(getLayoutInflater());
-                        setContentView(adminUiBinding.getRoot());
-                        adminUiBinding.playGameButton.setOnClickListener(v -> {
-                            Intent intent = new Intent(LoginActivity.this, PlayGame.class);
-                            intent.putExtra("USER_ID", loggedInUserId);
-                            startActivity(intent);
-                        });
-                    } else if(user.getRole().equalsIgnoreCase("user")){
-                        UserUiBinding userUiBinding = UserUiBinding.inflate(getLayoutInflater());
-                        setContentView(userUiBinding.getRoot());
-                        userUiBinding.playGameButtonUser.setOnClickListener(v -> {
-                            Intent intent = new Intent(LoginActivity.this, PlayGame.class);
+                        //AdminUiBinding adminUiBinding = AdminUiBinding.inflate(getLayoutInflater());
+                       // setContentView(adminUiBinding.getRoot());
+                        //adminUiBinding.playGameButton.setOnClickListener(v -> {
+                            Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
                             intent.putExtra("USER_ID", loggedInUserId);
                             startActivity(intent);
                             finish();
-                        });
+                        //});
+                    } else if(user.getRole().equalsIgnoreCase("user")){
+                        //UserUiBinding userUiBinding = UserUiBinding.inflate(getLayoutInflater());
+                        //setContentView(userUiBinding.getRoot());
+                        //userUiBinding.playGameButtonUser.setOnClickListener(v -> {
+                            Intent intent = new Intent(LoginActivity.this, UserActivity.class);
+                            intent.putExtra("USER_ID", loggedInUserId);
+                            startActivity(intent);
+                            finish();
+                       // });
                     }
                    // finish();
                 } else {
