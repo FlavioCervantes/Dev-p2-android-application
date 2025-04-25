@@ -75,7 +75,7 @@ public class PlayGame extends AppCompatActivity {
             startActivity(intent);
         });
 
-        Button logOutButton = findViewById(R.id.logOutButton);
+        Button logOutButton = findViewById(R.id.logOutButtonUser);
         logOutButton.setOnClickListener(v -> {
             Intent intent = new Intent(PlayGame.this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

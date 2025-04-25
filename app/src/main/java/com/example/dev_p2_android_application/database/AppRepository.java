@@ -4,6 +4,8 @@ import android.app.Application;
 import  android.os.AsyncTask;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.dev_p2_android_application.MainActivity;
 import com.example.dev_p2_android_application.database.entities.TriviaQuestions;
 import com.example.dev_p2_android_application.database.entities.ActiveDirectory;
@@ -89,6 +91,13 @@ public class AppRepository {
     public void insertActiveDirectory(ActiveDirectory directory) {
         new InsertActiveDirectoryAsyncTask(activeDirectoryDAO).execute(directory);
     }
+    public LiveData<ActiveDirectory> getUserByUserName(String username) {
+        return activeDirectoryDAO.getUserByUserName(username);
+    }
+
+
+
+
 
     private static class InsertActiveDirectoryAsyncTask extends AsyncTask<ActiveDirectory, Void, Void> {
         private final ActiveDirectoryDAO dao;

@@ -54,4 +54,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+
+    // Add Mockito for unit testing
+    testImplementation("org.mockito:mockito-core:5.5.0")
+
 }

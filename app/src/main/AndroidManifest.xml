@@ -22,6 +22,11 @@
             android:name=".AdminActivity"
             android:exported="false" />
 
+        <!-- Edit Questions activity -->
+        <activity
+            android:name=".EditQuestions"
+            android:exported="false" />
+
         <!-- Quiz activity -->
         <activity
             android:name=".QuizActivity"
