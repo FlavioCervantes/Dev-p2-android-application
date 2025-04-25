@@ -9,7 +9,9 @@
         android:id="@+id/usernameTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Username"
+        android:text="Username  "
+        android:textStyle="bold"
+        android:textSize="18sp"
         android:layout_weight="1"
         android:layout_marginLeft="40dp"/>
 
@@ -17,6 +19,7 @@
         android:id="@+id/scoreTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Score"
+        android:text="Score  "
+        android:textSize="18sp"
         android:layout_marginRight="40dp"/>
 </LinearLayout>
