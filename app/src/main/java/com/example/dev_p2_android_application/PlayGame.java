@@ -55,11 +55,6 @@ public class PlayGame extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
-
-        Button quitGameButton = findViewById(R.id.quitGameButton);
-        quitGameButton.setOnClickListener(v -> {
-            finishAffinity();
-        });
     }
 
     private void setupAdminUI() {
@@ -86,11 +81,6 @@ public class PlayGame extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish();
-        });
-
-        Button quitGameButton = findViewById(R.id.quitGameButton);
-        quitGameButton.setOnClickListener(v -> {
-            finishAffinity();
         });
     }
 }
