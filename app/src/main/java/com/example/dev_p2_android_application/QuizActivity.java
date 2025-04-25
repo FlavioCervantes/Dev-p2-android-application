@@ -25,7 +25,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private List<Questions> questionList;
     private int currentQuestionIndex = 0;
-    private int score = 0;
+    public int score = 0;
 
     // database declaration
     private AppDatabase db;
