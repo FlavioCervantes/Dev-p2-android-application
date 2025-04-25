@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Dev-p2-android-application</string>
     <string name="login_welcome">Trivia Game</string>
-    <string name="username">Username</string>
-    <string name="password">Password</string>
+    <string name="password">user_preferences</string>
+    <string name="username">logged_in_user_id</string>
     <string name="shared_preferences_key">user_preferences</string>
     <string name="username_key">username</string>
     <string name="login">Login</string>

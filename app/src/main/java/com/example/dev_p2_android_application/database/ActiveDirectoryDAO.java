@@ -26,7 +26,13 @@ public interface ActiveDirectoryDAO {
     //Retrieve all the users
     @Query("SELECT * FROM ActiveDirectory")
     List<ActiveDirectory> getAllUsers();
-    @Query  ("SELECT * FROM ActiveDirectory WHERE userName = :username")
-    LiveData<ActiveDirectory> getUserByUserName(String username);
-}
 
+    @Query("SELECT * FROM activeDirectory WHERE userName = :username LIMIT 1")
+    LiveData<ActiveDirectory> getUserByUserName(String username);
+
+    @Query("SELECT * FROM activeDirectory WHERE username == :loggedInUserId")
+    LiveData<ActiveDirectory> getUserByUserId(int loggedInUserId);
+
+    @Query("DELETE FROM activeDirectory")
+    void deleteAll();
+}
