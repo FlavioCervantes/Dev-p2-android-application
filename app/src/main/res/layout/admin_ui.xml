@@ -53,12 +53,6 @@
 
 
 
-        <Button
-            android:id="@+id/quitGameButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/quit_game" />
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
