@@ -37,6 +37,9 @@ public class PlayGame extends AppCompatActivity {
     }
 
     private void setupUserUI() {
+        TextView welcomeText = findViewById(R.id.userWelcome);
+        welcomeText.setText("Welcome, User!");
+
         Button playGameButton = findViewById(R.id.playGameButtonUser);
         playGameButton.setOnClickListener(v -> {
             Intent intent = new Intent(PlayGame.this, QuizActivity.class);

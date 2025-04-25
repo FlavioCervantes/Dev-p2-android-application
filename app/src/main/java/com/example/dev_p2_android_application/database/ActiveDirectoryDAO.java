@@ -27,10 +27,10 @@ public interface ActiveDirectoryDAO {
     @Query("SELECT * FROM ActiveDirectory")
     List<ActiveDirectory> getAllUsers();
 
-    @Query("SELECT * FROM ActiveDirectory WHERE userName = :username LIMIT 1")
+    @Query("SELECT * FROM activeDirectory WHERE userName = :username LIMIT 1")
     LiveData<ActiveDirectory> getUserByUserName(String username);
 
-    @Query("SELECT * FROM ActiveDirectory WHERE username == :loggedInUserId")
+    @Query("SELECT * FROM activeDirectory WHERE username == :loggedInUserId")
     LiveData<ActiveDirectory> getUserByUserId(int loggedInUserId);
 
     @Query("DELETE FROM activeDirectory")

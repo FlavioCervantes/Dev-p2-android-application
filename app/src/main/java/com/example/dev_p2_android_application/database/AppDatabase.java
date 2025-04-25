@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
 
 
 // Define the DBs name and version
-@Database(entities = {ActiveDirectory.class, TriviaQuestions.class, playerScore.class, HighScore.class}, version = 2, exportSchema = false)
+@Database(entities = {ActiveDirectory.class, TriviaQuestions.class, playerScore.class, HighScore.class}, version = 3, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static volatile AppDatabase INSTANCE;
@@ -102,7 +102,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 user.setPassword("user");
                 user.setRole("user");
                 user.setFullName("User");
-                userDao.insertUser(admin);
+                userDao.insertUser(user);
             });
         }
     };
