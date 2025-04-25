@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // Set the content view to the activity_main layout
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_main);
 
         //TODO:
         loginUser();
