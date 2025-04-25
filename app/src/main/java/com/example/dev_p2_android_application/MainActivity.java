@@ -1,105 +1,72 @@
 package com.example.dev_p2_android_application;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.widget.ImageView;
 
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 
-import com.example.dev_p2_android_application.database.AppRepository;
-import com.example.dev_p2_android_application.database.PlayerScoreDAO;
-import com.example.dev_p2_android_application.database.TriviaQuestionsDAO;
 import com.example.dev_p2_android_application.database.entities.ActiveDirectory;
 import com.example.dev_p2_android_application.database.ActiveDirectoryDAO;
 import com.example.dev_p2_android_application.database.AppDatabase;
-import com.example.dev_p2_android_application.database.entities.TriviaQuestions;
-import com.example.dev_p2_android_application.databinding.ActivityMainBinding;
-import com.example.dev_p2_android_application.databinding.AdminUiBinding;
-import com.example.dev_p2_android_application.databinding.PlayGameBinding;
-import com.example.dev_p2_android_application.databinding.UserUiBinding;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String TAG = "TriviaGame";
-    private int loggedInUserId = -1;
-    private ActiveDirectory user;
-    private static final int LOGGED_OUT = -1;
-    private static final String MAIN_ACTIVITY_USER_ID = "com.example.dev_p2_android_application.MAIN_ACTIVITY_USER_ID";
-    private static final String SAVED_INSTANCE_STATE_USERID_KEY = "com.example.dev_p2_android_application.SAVED_INSTANCE_STATE_USERID_KEY";
-    private AppRepository repository;
-
+    // TODO: Determine if this is necessary still
+    int loggedInUserId = -1;
+    public static final String TAG = "TRIVIA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        repository = AppRepository.getRepository(getApplication());
-        loginUser(savedInstanceState);
-    }
+        // Set the content view to the activity_main layout
+        setContentView(R.layout.activity_login);
 
-    private void loginUser(Bundle savedInstanceState){
-        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.password),
-                Context.MODE_PRIVATE);
-        loggedInUserId = sharedPreferences.getInt(getString(R.string.username),LOGGED_OUT);
+        //TODO:
+        loginUser();
 
-        if(loggedInUserId == LOGGED_OUT & savedInstanceState != null && savedInstanceState.containsKey(SAVED_INSTANCE_STATE_USERID_KEY)){
-            loggedInUserId = savedInstanceState.getInt(SAVED_INSTANCE_STATE_USERID_KEY,LOGGED_OUT);
-        }
-        if(loggedInUserId == LOGGED_OUT){
-            loggedInUserId = getIntent().getIntExtra(MAIN_ACTIVITY_USER_ID,LOGGED_OUT);
-        }
-        if(loggedInUserId == LOGGED_OUT){
-            startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
-            //TOOD: DO i NEED THIS NEXT LINE
-            //finish();
+
+        if (loggedInUserId == -1) {
+            // Redirect to LoginActivity if no user is logged in
+            Intent intent = LoginActivity.loginIntentFactory(getApplicationContext());
+            startActivity(intent);
+            finish(); // Close MainActivity to prevent returning to it
             return;
         }
-        LiveData<ActiveDirectory> userObserver = repository.getUserByUserId(loggedInUserId);
-        userObserver.observe(this, user -> {
-            this.user = user;
-            if (this.user != null) {
-                if (this.user.isAdmin()) {
-                    AdminUiBinding adminUiBinding = AdminUiBinding.inflate(getLayoutInflater());
-                    setContentView(adminUiBinding.getRoot());
-                } else {
-                    UserUiBinding userUiBinding = UserUiBinding.inflate(getLayoutInflater());
-                    setContentView(userUiBinding.getRoot());
-                }
+
+        //imageview setup
+
+        // ImageView setup
+        ImageView imageView = findViewById(R.id.TriviaGameLogo);
+        imageView.setImageResource(R.drawable.trivia_game_logo);
+
+
+        // Initialize the database
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "active_directory_database")
+                .allowMainThreadQueries() // For simplicity, not recommended for production
+                .build();
+
+        ActiveDirectoryDAO activeDirectoryDAO = db.activeDirectoryDAO();
+
+        // Use the DAOs to perform database operations
+        new Thread(() -> {
+            // Example: Insert a new user
+            ActiveDirectory user = new ActiveDirectory();
+            activeDirectoryDAO.insertUser(user);
+
+            // Get the values of all users and log them
+            for (ActiveDirectory activeDirectory : activeDirectoryDAO.getAllUsers()) {
+                System.out.println(activeDirectory.username);
             }
-        });
-
-    }
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState){
-        super.onSaveInstanceState(outState);
-        outState.putInt(SAVED_INSTANCE_STATE_USERID_KEY,loggedInUserId);
-        updateSharedPreference();
+        }).start();
     }
 
-    private void updateSharedPreference() {
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(
-                getString(R.string.password),
-                Context.MODE_PRIVATE);
-        SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
-        sharedPrefEditor.putInt(getString(R.string.username),loggedInUserId);
-        sharedPrefEditor.apply();
+    private void loginUser() {
+        // TODO: Implement login logic
+        // Example: Check if a user is logged in and set loggedInUserId
+        // loggedInUserId = <valid user ID> if logged in, otherwise -1
     }
-
 }
