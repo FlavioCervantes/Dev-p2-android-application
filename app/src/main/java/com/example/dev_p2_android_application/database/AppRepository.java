@@ -4,6 +4,8 @@ import android.app.Application;
 import  android.os.AsyncTask;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.dev_p2_android_application.MainActivity;
 import com.example.dev_p2_android_application.database.entities.TriviaQuestions;
 import com.example.dev_p2_android_application.database.entities.ActiveDirectory;
@@ -19,12 +21,34 @@ public class AppRepository {
     private final TriviaQuestionsDAO triviaQuestionsDAO;
     private final ActiveDirectoryDAO activeDirectoryDAO;
     private final PlayerScoreDAO playerScoreLogDAO;
+    private static AppRepository repository;
 
     public AppRepository(Application application) {
         AppDatabase db = AppDatabase.getDatabase(application);
         this.triviaQuestionsDAO = db.triviaQuestionDao();
         this.activeDirectoryDAO = db.activeDirectoryDAO();
         this.playerScoreLogDAO = db.playerScoreDAO();
+    }
+
+    public static AppRepository getRepository(Application application) {
+        if(repository != null){
+            return repository;
+        }
+        Future<AppRepository> future = AppDatabase.getDatabaseWriteExecutor().submit(
+                new Callable<AppRepository>() {
+                    @Override
+                    public AppRepository call() throws Exception {
+                        return new AppRepository(application);
+                    }
+                }
+        );
+        try{
+            return future.get();
+        } catch (InterruptedException | ExecutionException e){
+            Log.d(MainActivity.TAG, "Problem getting App Repository.");
+        }
+        return null;
+
     }
 
     // TriviaQuestions operations
@@ -88,6 +112,14 @@ public class AppRepository {
 
     public void insertActiveDirectory(ActiveDirectory directory) {
         new InsertActiveDirectoryAsyncTask(activeDirectoryDAO).execute(directory);
+    }
+
+    public LiveData<ActiveDirectory> getUserByUserName(String username) {
+        return activeDirectoryDAO.getUserByUserName(username);
+    }
+
+    public LiveData<ActiveDirectory> getUserByUserId(int loggedInUserId) {
+        return activeDirectoryDAO.getUserByUserId(loggedInUserId);
     }
 
     private static class InsertActiveDirectoryAsyncTask extends AsyncTask<ActiveDirectory, Void, Void> {

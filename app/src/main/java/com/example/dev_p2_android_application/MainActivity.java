@@ -1,36 +1,16 @@
 package com.example.dev_p2_android_application;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
-import androidx.room.Room;
 
 import com.example.dev_p2_android_application.database.AppRepository;
-import com.example.dev_p2_android_application.database.PlayerScoreDAO;
-import com.example.dev_p2_android_application.database.TriviaQuestionsDAO;
 import com.example.dev_p2_android_application.database.entities.ActiveDirectory;
-import com.example.dev_p2_android_application.database.ActiveDirectoryDAO;
-import com.example.dev_p2_android_application.database.AppDatabase;
-import com.example.dev_p2_android_application.database.entities.TriviaQuestions;
-import com.example.dev_p2_android_application.databinding.ActivityMainBinding;
 import com.example.dev_p2_android_application.databinding.AdminUiBinding;
-import com.example.dev_p2_android_application.databinding.PlayGameBinding;
 import com.example.dev_p2_android_application.databinding.UserUiBinding;
 
 import java.util.List;

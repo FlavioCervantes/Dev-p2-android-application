@@ -20,11 +20,11 @@
 
         <ImageView
             android:id="@+id/TriviaGameLogo"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:src="@drawable/triviagamelogo"
+            android:layout_width="307dp"
+            android:layout_height="187dp"
+            android:layout_gravity="center"
             android:contentDescription="@string/triviagamelogo"
-            android:layout_gravity="center" />
+            android:src="@drawable/triviagamelogo" />
 
 
         <EditText

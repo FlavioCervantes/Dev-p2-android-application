@@ -12,18 +12,18 @@ import androidx.lifecycle.LiveData;
 
 import com.example.dev_p2_android_application.database.AppRepository;
 import com.example.dev_p2_android_application.database.entities.ActiveDirectory;
-import com.example.dev_p2_android_application.databinding.ActivityMainBinding;
+import com.example.dev_p2_android_application.databinding.ActivityLoginBinding;
 
 
 public class LoginActivity extends AppCompatActivity {
-    private ActivityMainBinding binding;
+    private ActivityLoginBinding binding;
     private AppRepository repository;
     private int loggedInUserId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         repository = AppRepository.getRepository(getApplication());

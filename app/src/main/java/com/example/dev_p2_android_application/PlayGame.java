@@ -8,9 +8,12 @@ package com.example.dev_p2_android_application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
 
 public class PlayGame extends AppCompatActivity {
 
@@ -55,6 +58,12 @@ public class PlayGame extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
+        ImageView ghostImage = findViewById(R.id.gif);
+        Glide.with(this)
+                .asGif()
+                .load(R.drawable.ghost)
+                .into(ghostImage);
     }
 
     private void setupAdminUI() {
@@ -82,5 +91,11 @@ public class PlayGame extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
+        ImageView ghostImage = findViewById(R.id.gif);
+        Glide.with(this)
+                .asGif()
+                .load(R.drawable.ghost)
+                .into(ghostImage);
     }
 }
