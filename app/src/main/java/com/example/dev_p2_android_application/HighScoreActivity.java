@@ -2,6 +2,7 @@ package com.example.dev_p2_android_application;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.bumptech.glide.Glide;
 import com.example.dev_p2_android_application.database.AppDatabase;
 
 public class HighScoreActivity extends AppCompatActivity {
@@ -44,5 +46,12 @@ public class HighScoreActivity extends AppCompatActivity {
         // QUIT button in upper right hand corner
         Button quitButton = findViewById(R.id.quitButton);
         quitButton.setOnClickListener(v -> finish());
+
+        //Glide yay gif
+        /*ImageView yayImage  = findViewById(R.id.celebrate);
+        Glide.with(this)
+                .asGif()
+                .load(R.drawable.yay)
+                .into(yayImage);*/
     }
 }
