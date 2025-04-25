@@ -46,12 +46,6 @@ public class HighScoreActivity extends AppCompatActivity {
         // QUIT button in upper right hand corner
         Button quitButton = findViewById(R.id.quitButton);
         quitButton.setOnClickListener(v -> finish());
-
-        //Glide yay gif
-        /*ImageView yayImage  = findViewById(R.id.celebrate);
-        Glide.with(this)
-                .asGif()
-                .load(R.drawable.yay)
-                .into(yayImage);*/
+        
     }
 }
