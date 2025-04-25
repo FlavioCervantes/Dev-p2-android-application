@@ -41,7 +41,6 @@ public class HighScoreActivity extends AppCompatActivity {
             });
         });
 
-
         // QUIT button in upper right hand corner
         Button quitButton = findViewById(R.id.quitButton);
         quitButton.setOnClickListener(v -> finish());

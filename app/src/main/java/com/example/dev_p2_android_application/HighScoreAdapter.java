@@ -27,14 +27,13 @@ public class HighScoreAdapter extends RecyclerView.Adapter<HighScoreAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int pos) {
         HighScore score = highScoreList.get(pos);
-//        holder.userTextView.setText(score.username);
-//        holder.scoreTextView.setText("Score: " + score.score);
 
+        // check if username is available, otherwise, is guest
         if (score.username != null) {
             holder.userTextView.setText(score.username);
         }
         else {
-            holder.userTextView.setText("WHAAAAAAAT");
+            holder.userTextView.setText("Guest");
         }
 
         // score
