@@ -17,6 +17,11 @@
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".AdminActivity"
+            android:exported="false" />
+
         <!-- Quiz activity -->
         <activity
             android:name=".QuizActivity"
