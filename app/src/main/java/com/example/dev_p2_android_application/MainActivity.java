@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         }
         if(loggedInUserId == LOGGED_OUT){
             startActivity(LoginActivity.loginIntentFactory(getApplicationContext()));
-            //TOOD: DO i NEED THIS NEXT LINE
             //finish();
             return;
         }

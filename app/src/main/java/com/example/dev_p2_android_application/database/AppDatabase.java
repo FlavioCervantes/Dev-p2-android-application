@@ -95,6 +95,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 admin.setPassword("admin1");
                 admin.setRole("admin");
                 admin.setFullName("Admin user");
+                admin.setAdmin(true);
                 userDao.insertUser(admin);
 
                 ActiveDirectory user = new ActiveDirectory();
@@ -102,6 +103,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 user.setPassword("user");
                 user.setRole("user");
                 user.setFullName("User");
+                user.setAdmin(false);
                 userDao.insertUser(user);
             });
         }

@@ -28,6 +28,7 @@ public class PlayGame extends AppCompatActivity {
         role = intent.getStringExtra("USER_ROLE");
         userId = intent.getIntExtra("USER_ID", -1);
 
+        //If admin logs in, it redirects them to admin_ui
         if ("admin".equalsIgnoreCase(role)) {
             setContentView(R.layout.admin_ui);
             TextView welcomeText = findViewById(R.id.adminWelcome);
@@ -61,6 +62,7 @@ public class PlayGame extends AppCompatActivity {
                     .load(R.drawable.ghost)
                     .into(ghostImage);
         } else {
+            //If user logs in, it redirects them to user_ui
             setContentView(R.layout.user_ui);
             TextView welcomeText = findViewById(R.id.userWelcome);
             welcomeText.setText("Welcome, User!");
