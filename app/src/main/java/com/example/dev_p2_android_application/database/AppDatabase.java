@@ -15,6 +15,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
+
 // Define the DBs name and version
 @Database(entities = {ActiveDirectory.class, TriviaQuestions.class, playerScore.class, EditQuestionDB.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {

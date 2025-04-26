@@ -56,6 +56,7 @@ public class AdminActivity extends AppCompatActivity{
         Button quitGame = findViewById(R.id.quitButton);
 
 
+
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
