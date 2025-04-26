@@ -10,6 +10,7 @@
         android:layout_height="150dip"
         android:foregroundGravity="center"
         android:layout_margin="16dip"
+        android:src="@drawable/triviagamelogo"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

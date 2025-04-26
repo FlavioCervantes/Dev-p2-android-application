@@ -147,13 +147,13 @@ public class AppRepository {
                 }
         );
 
-            try{
-                return future.get();
-            } catch (InterruptedException | ExecutionException e) {
-                // Handle the exception
-                Log.i(MainActivity.TAG, "Problem getting all PlayerScores in the repository");
-            }
-            return new ArrayList<>();
+        try{
+            return future.get();
+        } catch (InterruptedException | ExecutionException e) {
+            // Handle the exception
+            Log.i(MainActivity.TAG, "Problem getting all PlayerScores in the repository");
+        }
+        return new ArrayList<>();
     }
 
     public void insertPlayerScore(playerScore scoreLog) {
@@ -174,5 +174,3 @@ public class AppRepository {
         }
     }
 }
-
-

@@ -32,10 +32,10 @@ public abstract class AppDatabase extends RoomDatabase {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(
-                            application.getApplicationContext(),
-                            AppDatabase.class,
-                            "app_database"
-                    )
+                                    application.getApplicationContext(),
+                                    AppDatabase.class,
+                                    "app_database"
+                            )
                             .fallbackToDestructiveMigration()
                             .addCallback(addDefaultValues)
                             .build();
@@ -75,7 +75,7 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    //Exeutor for DB operations
+    //Executor for DB operations
     // Executor for database operations
     public static ExecutorService getDatabaseWriteExecutor() {
         return databaseWriteExecutor;
@@ -109,6 +109,3 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     };
 }
-
-
-

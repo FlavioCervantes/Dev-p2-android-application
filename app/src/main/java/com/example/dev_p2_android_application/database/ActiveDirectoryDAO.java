@@ -36,4 +36,3 @@ public interface ActiveDirectoryDAO {
     @Query("DELETE FROM activeDirectory")
     void deleteAll();
 }
-

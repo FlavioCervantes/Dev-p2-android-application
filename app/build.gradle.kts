@@ -57,4 +57,8 @@ dependencies {
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.11.0")
+
+    // Add Mockito for unit testing
+    testImplementation("org.mockito:mockito-core:5.5.0")
+
 }

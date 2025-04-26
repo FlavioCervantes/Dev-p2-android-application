@@ -1,3 +1,4 @@
+
 package com.example.dev_p2_android_application;
 
 import android.content.Context;
@@ -12,21 +13,21 @@ import androidx.lifecycle.LiveData;
 
 import com.example.dev_p2_android_application.database.AppRepository;
 import com.example.dev_p2_android_application.database.entities.ActiveDirectory;
-import com.example.dev_p2_android_application.databinding.ActivityLoginBinding;
+import com.example.dev_p2_android_application.databinding.ActivityMainBinding;
 
 
 public class LoginActivity extends AppCompatActivity {
-    private ActivityLoginBinding binding;
+    private ActivityMainBinding binding;
     private AppRepository repository;
     private int loggedInUserId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        repository = AppRepository.getRepository(getApplication());
+        repository = new AppRepository(getApplication());
 
         binding.loginButton.setOnClickListener(v -> {
             String username = binding.username.getText().toString();
@@ -55,17 +56,17 @@ public class LoginActivity extends AppCompatActivity {
                     editor.apply();
 
                     if(user.getRole().equalsIgnoreCase("admin")){
-                            Intent intent = new Intent(LoginActivity.this, PlayGame.class);
-                            intent.putExtra("USER_ID", loggedInUserId);
-                            intent.putExtra("USER_ROLE", "admin");
-                            startActivity(intent);
-                            finish();
+                        Intent intent = new Intent(LoginActivity.this, PlayGame.class);
+                        intent.putExtra("USER_ID", loggedInUserId);
+                        intent.putExtra("USER_ROLE", "admin");
+                        startActivity(intent);
+                        finish();
                     } else if(user.getRole().equalsIgnoreCase("user")){
-                            Intent intent = new Intent(LoginActivity.this, PlayGame.class);
-                            intent.putExtra("USER_ID", loggedInUserId);
-                            intent.putExtra("USER_ROLE","user");
-                            startActivity(intent);
-                            finish();
+                        Intent intent = new Intent(LoginActivity.this, PlayGame.class);
+                        intent.putExtra("USER_ID", loggedInUserId);
+                        intent.putExtra("USER_ROLE","user");
+                        startActivity(intent);
+                        finish();
                     }
                 } else {
                     toastmaker("Invalid password");
