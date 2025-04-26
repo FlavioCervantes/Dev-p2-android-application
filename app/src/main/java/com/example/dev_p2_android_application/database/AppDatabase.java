@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
 
 
 // Define the DBs name and version
-@Database(entities = {ActiveDirectory.class, TriviaQuestions.class, playerScore.class}, version = 1, exportSchema = false)
+@Database(entities = {ActiveDirectory.class, TriviaQuestions.class, playerScore.class, EditQuestionDAO.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     // This String is part of storing the edit questions.
