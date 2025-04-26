@@ -23,7 +23,7 @@
             android:id="@+id/adminWelcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/Welcome_Admin"
+            android:text="Welcome Admin"
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center"
@@ -41,6 +41,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/high_scores"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/EditQuestions"
+            style="@style/BlackButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit Questions"
             android:layout_marginBottom="16dp" />
 
         <Button
