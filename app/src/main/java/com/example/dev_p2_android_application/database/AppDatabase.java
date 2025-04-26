@@ -18,6 +18,8 @@ import java.util.concurrent.Executors;
 @Database(entities = {ActiveDirectory.class, TriviaQuestions.class, playerScore.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
+    // This String is part of storing the edit questions.
+    private static final String DATABASE_NAME = "AppDatabase.db";
     private static volatile AppDatabase INSTANCE;
     public static final String PLAYER_SCORE_TABLE = "player_score_table";
     private static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(4);
@@ -44,6 +46,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract PlayerScoreDAO playerScoreDAO();
 
     public abstract TriviaQuestionsDAO triviaQuestionDao();
+
+    public abstract EditQuestionDAO EditQuestionDAO();
 
     // El Singleton instance
     //To ensures only one instance of the database is created throughout the app
