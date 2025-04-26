@@ -51,6 +51,12 @@
             android:text="Edit Questions"
             android:layout_marginBottom="16dp" />
 
+        <Button
+            android:id="@+id/logOutButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log_out" />
+
 
 
     </LinearLayout>

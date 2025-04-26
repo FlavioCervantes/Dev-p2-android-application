@@ -16,11 +16,12 @@
         <!-- Login activity -->
         <activity
             android:name=".LoginActivity"
-            android:exported="false" />
+            android:exported="true"
+            />
 
         <activity
             android:name=".AdminActivity"
-            android:exported="false" />
+            android:exported="true" />
 
         <!-- Edit Questions activity -->
         <activity

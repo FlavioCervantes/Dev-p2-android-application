@@ -8,14 +8,18 @@ package com.example.dev_p2_android_application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+
 
 public class PlayGame extends AppCompatActivity {
 
     private String role;
     private int userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,63 +28,64 @@ public class PlayGame extends AppCompatActivity {
         role = intent.getStringExtra("USER_ROLE");
         userId = intent.getIntExtra("USER_ID", -1);
 
-        if("admin".equalsIgnoreCase(role)){
+        //If admin logs in, it redirects them to admin_ui
+        if ("admin".equalsIgnoreCase(role)) {
             setContentView(R.layout.admin_ui);
-            setupAdminUI();
+            TextView welcomeText = findViewById(R.id.adminWelcome);
+            welcomeText.setText("Welcome, Admin!");
+
+            Button playGameButton = findViewById(R.id.playGameButton);
+            playGameButton.setOnClickListener(v -> {
+                Intent newIntent = new Intent(PlayGame.this, QuizActivity.class);
+                newIntent.putExtra("USER_ROLE", role);
+                newIntent.putExtra("USER_ID", userId);
+                startActivity(newIntent);
+            });
+
+            Button highScoreButton = findViewById(R.id.highScoreButton);
+            highScoreButton.setOnClickListener(v -> {
+                Intent newIntent = new Intent(PlayGame.this, HighScoreActivity.class);
+                startActivity(newIntent);
+            });
+
+            Button logOutButton = findViewById(R.id.logOutButton);
+            logOutButton.setOnClickListener(v -> {
+                Intent newIntent = new Intent(PlayGame.this, LoginActivity.class);
+                newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(newIntent);
+                finish();
+            });
+
+
         } else {
+            //If user logs in, it redirects them to user_ui
             setContentView(R.layout.user_ui);
-            setupUserUI();
+            TextView welcomeText = findViewById(R.id.userWelcome);
+            welcomeText.setText("Welcome, User!");
+
+            Button playGameButton = findViewById(R.id.playGameButtonUser);
+            playGameButton.setOnClickListener(v -> {
+                Intent otherIntent = new Intent(PlayGame.this, QuizActivity.class);
+                otherIntent.putExtra("USER_ROLE", role);
+                otherIntent.putExtra("USER_ID", userId);
+                startActivity(otherIntent);
+            });
+
+            Button highScoreButton = findViewById(R.id.highScoreButtonUser);
+            highScoreButton.setOnClickListener(v -> {
+                Intent otherIntent = new Intent(PlayGame.this, HighScoreActivity.class);
+                startActivity(otherIntent);
+            });
+
+            Button logOutButton = findViewById(R.id.logOutButtonUser);
+            logOutButton.setOnClickListener(v -> {
+                Intent otherIntent = new Intent(PlayGame.this, LoginActivity.class);
+                otherIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(otherIntent);
+                finish();
+            });
+
+
         }
-    }
-
-    private void setupUserUI() {
-        Button playGameButton = findViewById(R.id.playGameButtonUser);
-        playGameButton.setOnClickListener(v -> {
-            Intent intent = new Intent(PlayGame.this, QuizActivity.class);
-            intent.putExtra("USER_ROLE", role);
-            intent.putExtra("USER_ID", userId);
-            startActivity(intent);
-        });
-
-        Button highScoreButton = findViewById(R.id.highScoreButtonUser);
-        highScoreButton.setOnClickListener(v -> {
-            Intent intent = new Intent(PlayGame.this, HighScoreActivity.class);
-            startActivity(intent);
-        });
-
-        Button logOutButton = findViewById(R.id.logOutButtonUser);
-        logOutButton.setOnClickListener(v -> {
-            Intent intent = new Intent(PlayGame.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
-        });
-    }
-
-    private void setupAdminUI() {
-        TextView welcomeText = findViewById(R.id.adminWelcome);
-        welcomeText.setText("Welcome, Admin!");
-
-        Button playGameButton = findViewById(R.id.playGameButton);
-        playGameButton.setOnClickListener(v -> {
-            Intent intent = new Intent(PlayGame.this, QuizActivity.class);
-            intent.putExtra("USER_ROLE", role);
-            intent.putExtra("USER_ID", userId);
-            startActivity(intent);
-        });
-
-        Button highScoreButton = findViewById(R.id.highScoreButton);
-        highScoreButton.setOnClickListener(v -> {
-            Intent intent = new Intent(PlayGame.this, HighScoreActivity.class);
-            startActivity(intent);
-        });
-
-        Button logOutButton = findViewById(R.id.logOutButtonUser);
-        logOutButton.setOnClickListener(v -> {
-            Intent intent = new Intent(PlayGame.this, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
-        });
     }
 }
