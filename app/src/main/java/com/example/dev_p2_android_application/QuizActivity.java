@@ -103,7 +103,7 @@ public class QuizActivity extends AppCompatActivity {
 
             // Insert score in background and then navigate
             AppDatabase.getDatabaseWriteExecutor().execute(() -> {
-                db.highScoreDAO().insert(new HighScore(username, score));
+                db.HighScoreDAO().insert(new HighScore(username, score));
 
                 runOnUiThread(() -> {
                     Intent intent = new Intent(QuizActivity.this, HighScoreActivity.class);
