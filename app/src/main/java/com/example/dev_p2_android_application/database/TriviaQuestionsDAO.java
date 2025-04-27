@@ -6,7 +6,8 @@ import androidx.room.Dao;
 import androidx.room.Query;
 import androidx.room.Insert;
 @Dao
-public interface TriviaQuestionsDAO {
+public  interface TriviaQuestionsDAO {
+
     @Insert
     void insert(TriviaQuestions triviaQuestions);
 

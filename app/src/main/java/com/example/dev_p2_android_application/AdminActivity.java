@@ -51,9 +51,10 @@ public class AdminActivity extends AppCompatActivity{
         Button checkScoreButton = findViewById(R.id.highScoreButton);
 
 
-        Button questionInput = findViewById(R.id.editQuestionsButton);
+        Button questionInput = findViewById(R.id.editQuestions);
 
         Button quitGame = findViewById(R.id.quitButton);
+
 
 
         playButton.setOnClickListener(new View.OnClickListener() {
@@ -94,8 +95,8 @@ public class AdminActivity extends AppCompatActivity{
             public void onClick(View view) {
 
 
-                 Intent intent = new Intent(AdminActivity.this, LoginActivity.class);
-                 startActivity(intent);
+                Intent intent = new Intent(AdminActivity.this, LoginActivity.class);
+                startActivity(intent);
 
             }
         });

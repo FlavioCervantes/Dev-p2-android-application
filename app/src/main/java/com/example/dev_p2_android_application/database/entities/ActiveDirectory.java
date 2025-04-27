@@ -25,12 +25,6 @@ public class ActiveDirectory {
     @ColumnInfo(name = "fullName")
     public String fullName;
 
-    public void User(String password, String username){
-        this.password = password;
-        this.username = username;
-        isAdmin = false;
-    }
-
     public int getId() {
         return id;
     }
