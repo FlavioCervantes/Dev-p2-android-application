@@ -48,10 +48,10 @@
 
         <Button
             android:id="@+id/EditQuestions"
-            style="@style/BlackButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Edit Questions"
+            style="@style/BlackButton"
             android:layout_marginBottom="16dp" />
 
         <Button
