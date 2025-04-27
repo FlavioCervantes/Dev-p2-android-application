@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/admin_ui"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- Admin Panel -->
     <LinearLayout
-        android:id="@+id/adminPanel"
+        android:id="@+id/editQuestions"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -19,60 +15,66 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+
         <TextView
-            android:id="@+id/adminWelcome"
+            android:id="@+id/editQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Welcome Admin"
+            android:text="Editing Question"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#000000"
             android:gravity="center"
             android:layout_marginBottom="16dp" />
 
-        <Button
-            android:id="@+id/playGameButton"
+        <EditText
+            android:id="@+id/editTextQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/play_game"
-            style="@style/BlackButton"
+            android:hint="Enter a question."
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/editTextOptionA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Answer A."
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/editTextOptionB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Answer B."
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/editTextOptionC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Answer C."
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/editTextOptionD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Answer D."
+            android:layout_marginBottom="16dp" />
+
+        <EditText
+            android:id="@+id/editTextCorrectAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter the correct Answer."
             android:layout_marginBottom="16dp" />
 
         <Button
-            android:id="@+id/highScoreButton"
+            android:id="@+id/buttonPublish"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/high_scores"
-            style="@style/BlackButton"
+            android:text="Publish Question"
             android:layout_marginBottom="16dp" />
-
-        <Button
-            android:id="@+id/EditQuestions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Edit Questions"
-            style="@style/BlackButton"
-            android:layout_marginBottom="16dp" />
-
-        <Button
-            android:id="@+id/logOutButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/BlackButton"
-            android:text="@string/log_out" />
-
-
 
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/gif"
-        android:layout_width="245dp"
-        android:layout_height="264dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adminPanel"
-        app:srcCompat="@drawable/ghost" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

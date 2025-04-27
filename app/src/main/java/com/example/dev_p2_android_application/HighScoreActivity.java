@@ -36,7 +36,7 @@ public class HighScoreActivity extends AppCompatActivity {
         // LogCat shows app crashing due to running queries on main thread
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
-            List<HighScore> topScores = db.highScoreDAO().getHighFiveScores();
+            List<HighScore> topScores = db.HighScoreDAO().getHighFiveScores();
             runOnUiThread(() -> {
                 adapter = new HighScoreAdapter(topScores);
                 scoreRecycler.setAdapter(adapter);

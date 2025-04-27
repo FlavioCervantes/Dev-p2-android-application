@@ -1,8 +1,5 @@
 package com.example.dev_p2_android_application.database;
 
-// ********************Trivia Game Application Database  ********************
-// this class is used to create the database and define the entities and DAOs
-
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
@@ -13,8 +10,10 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.dev_p2_android_application.HighScore;
+import com.example.dev_p2_android_application.HighScoreActivity;
 import com.example.dev_p2_android_application.MainActivity;
 import com.example.dev_p2_android_application.database.entities.ActiveDirectory;
+import com.example.dev_p2_android_application.database.entities.EditQuestionDB;
 import com.example.dev_p2_android_application.database.entities.TriviaQuestions;
 import com.example.dev_p2_android_application.database.entities.playerScore;
 
@@ -22,26 +21,27 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
+
 // Define the DBs name and version
-@Database(entities = {ActiveDirectory.class, TriviaQuestions.class, playerScore.class, HighScore.class}, version = 3, exportSchema = false)
+@Database(entities = {ActiveDirectory.class, TriviaQuestions.class, playerScore.class, EditQuestionDB.class, HighScore.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
+    // This String is part of storing the edit questions.
+    private static final String DATABASE_NAME = "AppDatabase.db";
     private static volatile AppDatabase INSTANCE;
     public static final String PLAYER_SCORE_TABLE = "player_score_table";
     private static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(4);
 
-    public static AppDatabase getDatabase(final Application application) {
+    public static AppDatabase getDatabase(Application application) {
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(
-                                    application.getApplicationContext(),
-                                    AppDatabase.class,
-                                    "app_database"
-                            )
-                            .fallbackToDestructiveMigration()
-                            .addCallback(addDefaultValues)
-                            .build();
+                            application.getApplicationContext(),
+                            AppDatabase.class,
+                            "app_database"
+                    ).fallbackToDestructiveMigration()
+                            .addCallback(addDefaultValues).build();
                 }
             }
         }
@@ -56,7 +56,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract TriviaQuestionsDAO triviaQuestionDao();
 
-    public abstract HighScoreDAO highScoreDAO();
+    public abstract EditQuestionDAO EditQuestionDAO();
 
     // El Singleton instance
     //To ensures only one instance of the database is created throughout the app
@@ -78,11 +78,13 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    //Executor for DB operations
+    //Exeutor for DB operations
     // Executor for database operations
     public static ExecutorService getDatabaseWriteExecutor() {
         return databaseWriteExecutor;
     }
+
+    public abstract HighScoreDAO HighScoreDAO();
 
     private static final RoomDatabase.Callback addDefaultValues = new RoomDatabase.Callback(){
         @Override
@@ -111,6 +113,7 @@ public abstract class AppDatabase extends RoomDatabase {
             });
         }
     };
-
-  //  public abstract HighScoreDAO activeDirectoryDao();
 }
+
+
+
