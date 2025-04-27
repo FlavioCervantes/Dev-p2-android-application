@@ -1,66 +1,50 @@
-/*
- *@abstract: Controls the quiz question screen of app
- *           Goes off of play_game.xml to display score, timer, question, and answers
- */
-
 package com.example.dev_p2_android_application;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.view.View;
+import android.os.Handler;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.example.dev_p2_android_application.database.AppDatabase;
-import com.example.dev_p2_android_application.database.PlayerScoreDAO;
-import com.example.dev_p2_android_application.database.TriviaQuestionsDAO;
-import com.example.dev_p2_android_application.database.entities.TriviaQuestions;
-import com.example.dev_p2_android_application.database.entities.playerScore;
 
 import java.util.ArrayList;
 import java.util.List;
 
-// Called on by PlayGame.java; Button pressed, user should be sent to questions page
 public class QuizActivity extends AppCompatActivity {
-    private TriviaQuestionsDAO questionsDAO;
-    private List<TriviaQuestions> questionList;
-    private int loginID;
-    private PlayerScoreDAO playerScoreDAO;
-    private int currentQuestionIndex = 0;
-    private int score = 0;
-    private TextView questionText, scoreText;
+    private TextView scoreText;
     private TextView timerText;
+    private TextView questionText;
     private Button optionOne, optionTwo, optionThree, optionFour;
     private CountDownTimer countDownTimer;
     private static final long TIME = 30000;
-    private TextView timerCountDown;
 
-    // TODO: DETERMINE WHICH ANSWER IS CORRECT TO LINK BUTTONS !!
+    private List<Questions> questionList;
+    private int currentQuestionIndex = 0;
+    public int score = 0;
+
+    // database declaration
+    private AppDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.play_game);
-        //Initializing questionDAO
-        AppDatabase db = AppDatabase.getDatabase(getApplication());
-        questionsDAO = db.triviaQuestionDao();
-        playerScoreDAO = db.playerScoreDAO();
-        loginID = getIntent().getIntExtra("User", -1);
 
-        // Displays UI
+        // UI setup
         scoreText = findViewById(R.id.scoreText);
         timerText = findViewById(R.id.timerText);
-
+        questionText = findViewById(R.id.questionText);
         optionOne = findViewById(R.id.optionOne);
         optionTwo = findViewById(R.id.optionTwo);
         optionThree = findViewById(R.id.optionThree);
         optionFour = findViewById(R.id.optionFour);
 
-        // QUIT button in upper right hand corner
+        // Quit Button
         Button quitButton = findViewById(R.id.quitButton);
         quitButton.setOnClickListener(v -> {
             Intent intent = new Intent(QuizActivity.this, PlayGame.class);
@@ -69,126 +53,147 @@ public class QuizActivity extends AppCompatActivity {
             finish();
         });
 
+        db = AppDatabase.getInstance(this);
+
+        // Sample questions
+        questionList = new ArrayList<>();
+        questionList.add(new Questions("What does JVM stand for?",
+                new String[]{"Just Virtual Machines", "JVM Visits Mars", "Java Virtual Machine", "Java Virtual Mode"},
+                "Java Virtual Machine"));
+
+        questionList.add(new Questions("What is the output: \"I like cake\".equals(\"I like CAKE\");",
+                new String[]{"true", "false", "Nothing", "I love cake"},
+                "false"));
+
+        questionList.add(new Questions("Assuming we are looking at a UML diagram, which of these would most likely be an interface?",
+                new String[]{"<<Class>>", "Class", "UML diagrams do not distinguish this", "CLASS"},
+                "<<Class>>"));
+
+        questionList.add(new Questions("Which of the following is the correct Java print statement?",
+                new String[]{"System.out.println(\"Hello there!\");", "Console.WriteLine(\"Hello World!\");", "std::cout << \"Hello there!\" << std::endl;", "print('Hello there!');"},
+                "System.out.println(\"Hello there!\");"));
+
+        questionList.add(new Questions("A thread is:",
+                new String[]{"Threads are independent", "In a single CPU system threads can operate concurrently ",
+                        "The smallest unit of programmed instructions that can be managed by a scheduler",
+                        "Threads will naturally form binary messages in fabric that can be interpreted to reveal secrets about the universe"},
+                "The smallest unit of programmed instructions that can be managed by a scheduler"));
+
+        questionList.add(new Questions("Background tasks should",
+                new String[]{"always update the UI", "not update the UI", "be painted chroma key green (00b140)", "always be started using buttons"},
+                "not update the UI"));
+
+        questionList.add(new Questions("Database transactions should:",
+                new String[]{"be run on a foreground thread", "be run on a background thread", "be started only when an activity is first created", "Threads should only be made from natural fiber"},
+                "be run on a background thread"));
+
+        loadNextQuestion(); // Start with the first question
+    }
+
+    // Launches next question
+    private void loadNextQuestion() {
+        if (countDownTimer != null) {
+            // cancel previous timer
+            countDownTimer.cancel();
+        }
+
+        // Reached the end of questions --> High Score page
+        if (currentQuestionIndex >= questionList.size()) {
+            String username = getIntent().getStringExtra("username");
+
+            // Insert score in background and then navigate
+            AppDatabase.getDatabaseWriteExecutor().execute(() -> {
+                db.highScoreDAO().insert(new HighScore(username, score));
+
+                runOnUiThread(() -> {
+                    Intent intent = new Intent(QuizActivity.this, HighScoreActivity.class);
+                    startActivity(intent);
+                    finish();
+                });
+            });
+
+            return;
+        }
+
+        resetButtons();
+
+        // load next question. sets each button with answer
+        Questions current = questionList.get(currentQuestionIndex);
+        questionText.setText(current.getQuestion());
+        optionOne.setText(current.getOptions()[0]);
+        optionTwo.setText(current.getOptions()[1]);
+        optionThree.setText(current.getOptions()[2]);
+        optionFour.setText(current.getOptions()[3]);
+
+        setOptionClickListeners(current);
         startTimer();
-        settingUpQuestions();
     }
 
-    private void settingUpQuestions() {
-        if (questionsDAO.getAllQuestions().isEmpty()) {
-            //Asking multiple questions by adding a for loop
-            List<TriviaQuestions> newQuestions = new ArrayList<>();
-            newQuestions.add(new TriviaQuestions("What character is known as the Pikachu of Nintendo?", "Sonic", "Mario", "Dimitri", "Link", "Mario"));
-            newQuestions.add(new TriviaQuestions("What character is known as the Pikachu of Nintendo?", "Sonic", "Mario", "Dimitri", "Link", "Mario"));
-            newQuestions.add(new TriviaQuestions("What character is known as the Pikachu of Nintendo?", "Sonic", "Mario", "Dimitri", "Link", "Mario"));
-            newQuestions.add(new TriviaQuestions("What character is known as the Pikachu of Nintendo?", "Sonic", "Mario", "Dimitri", "Link", "Mario"));
-
-            for (TriviaQuestions question : newQuestions) {
-                questionsDAO.insert(question);
-            }
-            questionList = questionsDAO.getAllQuestions();
-            currentQuestionIndex = 0;
-            newQuestions();
-        }
-    }
-
-    private void newQuestions() {
-        if(currentQuestionIndex >= questionList.size()){
-            endOfGame();
-            return;
-        }
-        TriviaQuestions current = questionList.get(currentQuestionIndex);
-        questionText.setText(current.getType());
-
-        optionOne.setText(current.getOptionOne());
-        optionTwo.setText(current.getOptionTwo());
-        optionThree.setText(current.getOptionThree());
-        optionFour.setText(current.getOptionFour());
-
-        View.OnClickListener answerClickListener = view -> {
-            Button clicked = (Button)view;
-            String selectedAnswer = clicked.getText().toString();
-            String correctAnswer = current.getCorrectAnswer();
-
-            checkAnswer(clicked,selectedAnswer,correctAnswer);
-
-            if(selectedAnswer.equals(correctAnswer)){
-                score ++;
-            }
-            scoreText.setText("Score: " + score);
-            currentQuestionIndex++;
-            newQuestions();
-        };
-
-        optionOne.setOnClickListener(answerClickListener);
-        optionTwo.setOnClickListener(answerClickListener);
-        optionThree.setOnClickListener(answerClickListener);
-        optionFour.setOnClickListener(answerClickListener);
-    }
-
-    private void endOfGame() {
-        int totalQuestions = questionList.size();
-        float percentage = ((float)score/totalQuestions) * 100;
-
-        Toast.makeText(this,"Quiz complete! Final score: " + score, Toast.LENGTH_LONG).show();
-
-        int loginID = getIntent().getIntExtra("User", -1);
-        if(loginID == -1){
-            Toast.makeText(this,"No User id found", Toast.LENGTH_LONG).show();
-            return;
-        }
-        //Check for score
-        playerScore score = playerScoreDAO.getRecordByUserId(loginID);
-        if(score == null){
-            playerScore newScore = new playerScore( 0,String.valueOf(loginID), "0", "0");
-            playerScoreDAO.insert(newScore);
-        } else {
-            //If the player already has a score record it added a count by 1
-            score.setGamesPlayed(score.getGamesPlayed()+1);
-            //If the player gets an 80% or higher, they win
-            if(percentage >= 80){
-                score.setWins(String.valueOf(Integer.parseInt(score.getWins())+1));
-            } else {
-                //else they lose
-                score.setLosses(String.valueOf(Integer.parseInt(score.getLosses())+1));
-            }
-            playerScoreDAO.update(score);
-        }
-    }
-
-    // Starts timer as soon as question is shown
+    // initiates timer at start of question launching
     private void startTimer() {
+        // Timer counts down by 1sec
         countDownTimer = new CountDownTimer(TIME, 1000) {
+            // Converts ms to sec
             @Override
-            public void onTick(long l) {
-                timerText.setText("Time Left: " + l/1000);
+            public void onTick(long millisUntilFinished) {
+                timerText.setText("Time Left: " + millisUntilFinished / 1000);
             }
 
             @Override
             public void onFinish() {
                 timerText.setText("Out of Time!");
                 disableOptionButtons();
+                loadNextDelay();
             }
-        };
-        countDownTimer.start();
+        }
+        .start();
     }
-    // Responsible for checking if an answer is correct
+
+    // correct answers = green. wrong answers = red
     private void checkAnswer(Button selectedButton, String selectedAnswer, String correctAnswer) {
+        countDownTimer.cancel();
+
         if (selectedAnswer.equals(correctAnswer)) {
             selectedButton.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_green_dark));
-        }
-        else {
+            score++;
+            scoreText.setText("Score: " + score);
+        } else {
             selectedButton.setBackgroundColor(ContextCompat.getColor(this, android.R.color.holo_red_dark));
         }
 
-        // Disable other buttons after user makes a selection
         disableOptionButtons();
+        loadNextDelay();
     }
 
-    // Makes all other buttons unselectable after user chooses an answer
+    // adds a small delay before next question launches
+    private void loadNextDelay() {
+        new Handler().postDelayed(() -> {
+            currentQuestionIndex++;
+            loadNextQuestion();
+        }, 1000);
+    }
+
+    // Makes buttons selectable again when new question launched
+    private void resetButtons() {
+        Button[] buttons = {optionOne, optionTwo, optionThree, optionFour};
+        for (Button b : buttons) {
+            b.setEnabled(true);
+            b.setBackgroundColor(ContextCompat.getColor(this, android.R.color.system_control_normal_light));
+        }
+    }
+
+    // Disable buttons when timer is up
     private void disableOptionButtons() {
-        findViewById(R.id.optionOne).setEnabled(false);
-        findViewById(R.id.optionTwo).setEnabled(false);
-        findViewById(R.id.optionThree).setEnabled(false);
-        findViewById(R.id.optionFour).setEnabled(false);
+        optionOne.setEnabled(false);
+        optionTwo.setEnabled(false);
+        optionThree.setEnabled(false);
+        optionFour.setEnabled(false);
+    }
+
+    private void setOptionClickListeners(Questions question) {
+        optionOne.setOnClickListener(v -> checkAnswer(optionOne, optionOne.getText().toString(), question.getCorrectAnswer()));
+        optionTwo.setOnClickListener(v -> checkAnswer(optionTwo, optionTwo.getText().toString(), question.getCorrectAnswer()));
+        optionThree.setOnClickListener(v -> checkAnswer(optionThree, optionThree.getText().toString(), question.getCorrectAnswer()));
+        optionFour.setOnClickListener(v -> checkAnswer(optionFour, optionFour.getText().toString(), question.getCorrectAnswer()));
     }
 }

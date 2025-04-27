@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity">
 
     <!-- Login Screen -->
     <LinearLayout
@@ -14,16 +14,18 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:visibility="visible"
-        android:gravity="center">
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true">
 
-     <!--   <ImageView
+
+        <ImageView
             android:id="@+id/TriviaGameLogo"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:src="@drawable/trivia_game_logo"
+            android:layout_width="291dp"
+            android:layout_height="226dp"
+            android:layout_gravity="center"
             android:contentDescription="@string/triviagamelogo"
-            android:layout_gravity="center" />
-            -->
+            android:src="@drawable/triviagamelogo" />
 
         <EditText
             android:id="@+id/username"
@@ -45,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="LOGIN"
+            style="@style/BlackButton"
             android:layout_margin="20dp" />
     </LinearLayout>
 

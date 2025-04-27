@@ -108,24 +108,10 @@ public class AdminActivity extends AppCompatActivity{
 
 
     private boolean isAdminAuthenticated() {
-
-        if (roles == "admin"){
-
-            return true;
-        }
-        else {
-
-            return false;
-        }
-
-
+        return "admin".equals(roles);
     }
-
-
-
-
-
-
-
-
 }
+
+
+
+

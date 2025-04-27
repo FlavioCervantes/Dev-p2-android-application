@@ -1,9 +1,11 @@
+
 package com.example.dev_p2_android_application;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,9 +15,11 @@ import com.example.dev_p2_android_application.database.AppRepository;
 import com.example.dev_p2_android_application.database.entities.ActiveDirectory;
 import com.example.dev_p2_android_application.databinding.ActivityMainBinding;
 
+
 public class LoginActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private AppRepository repository;
+    private int loggedInUserId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -23,28 +27,47 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        repository = AppRepository.getRepository(getApplication());
+        repository = new AppRepository(getApplication());
 
-        binding.loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                verifyUser();
-            }
+        binding.loginButton.setOnClickListener(v -> {
+            String username = binding.username.getText().toString();
+            loginUser(username);
         });
     }
-    private void verifyUser() {
-        String username = binding.username.getText().toString();
 
+    private void loginUser(String username) {
         if(username.isEmpty()){
-            toastmaker("username should not be blank");
+            toastmaker("Username should not be blank");
             return;
         }
+
         LiveData<ActiveDirectory> userObserver = repository.getUserByUserName(username);
         userObserver.observe(this, user -> {
             if(user != null){
+                Log.d("LoginActivity", "User found: " + user.getUsername());
                 String password = binding.password.getText().toString();
+
                 if(password.equals(user.getPassword())){
-                    startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(),user.getId()));
+                    loggedInUserId = user.getId();
+                    SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.password).toString(),
+                            Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putInt(getString(R.string.username), loggedInUserId);
+                    editor.apply();
+
+                    if(user.getRole().equalsIgnoreCase("admin")){
+                        Intent intent = new Intent(LoginActivity.this, PlayGame.class);
+                        intent.putExtra("USER_ID", loggedInUserId);
+                        intent.putExtra("USER_ROLE", "admin");
+                        startActivity(intent);
+                        finish();
+                    } else if(user.getRole().equalsIgnoreCase("user")){
+                        Intent intent = new Intent(LoginActivity.this, PlayGame.class);
+                        intent.putExtra("USER_ID", loggedInUserId);
+                        intent.putExtra("USER_ROLE","user");
+                        startActivity(intent);
+                        finish();
+                    }
                 } else {
                     toastmaker("Invalid password");
                 }
