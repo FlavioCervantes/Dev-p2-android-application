@@ -1,5 +1,8 @@
 package com.example.dev_p2_android_application.database;
 
+// ********************Trivia Game Application Database  ********************
+// this class is used to create the database and define the entities and DAOs
+
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
@@ -108,4 +111,6 @@ public abstract class AppDatabase extends RoomDatabase {
             });
         }
     };
+
+  //  public abstract HighScoreDAO activeDirectoryDao();
 }

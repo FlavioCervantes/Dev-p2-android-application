@@ -80,7 +80,7 @@ public class QuizActivity extends AppCompatActivity {
                 "The smallest unit of programmed instructions that can be managed by a scheduler"));
 
         questionList.add(new Questions("Background tasks should",
-                new String[]{"always update the UI", "not update the UI", "be painted chroma key green (00b140)", "always be started using buttons"},
+                new String[]{"always update the UI", "not update the UI", "be painted chroma key green (00b140)", "not update the UI"},
                 "not update the UI"));
 
         questionList.add(new Questions("Database transactions should:",

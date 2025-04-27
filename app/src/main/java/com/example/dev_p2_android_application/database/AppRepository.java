@@ -1,5 +1,14 @@
 package com.example.dev_p2_android_application.database;
 
+// ********************Application Repository ********************
+// This class is responsible for managing data operations and providing a clean API for data access to the rest of the application
+// It abstracts the data sources (e.g., local database, remote server) and provides a unified interface for data access
+// It uses the DAO (Data Access Object) pattern to interact with the database
+// It handles threading and background operations using AsyncTask or ExecutorService
+// It provides methods to perform CRUD (Create, Read, Update, Delete) operations on the database entities
+// It is a singleton class to ensure that only one instance of the repository exists throughout the application
+//
+
 import android.app.Application;
 import  android.os.AsyncTask;
 import android.util.Log;
@@ -70,25 +79,6 @@ public class AppRepository {
         }
         return null;
     }
-
-
-//    public void insertTriviaQuestion(TriviaQuestions question) {
-//        new InsertTriviaQuestionAsyncTask(triviaQuestionsDAO).execute(question);
-//    }
-
-//    private static class InsertTriviaQuestionAsyncTask extends AsyncTask<TriviaQuestions, Void, Void> {
-//        private final TriviaQuestionsDAO dao;
-//
-//        InsertTriviaQuestionAsyncTask(TriviaQuestionsDAO dao) {
-//            this.dao = dao;
-//        }
-//
-//        @Override
-//        protected Void doInBackground(TriviaQuestions... questions) {
-//            dao.insert(questions[0]);
-//            return null;
-//        }
-//    }
 
     // ActiveDirectory operations
     public ArrayList<ActiveDirectory> getAllActiveDirectories() {
